@@ -133,9 +133,7 @@ class Calibration:
 
         self.average_difference_x = (difference_x_1 + difference_x_2 + difference_x_3 + difference_x_4 + difference_x_5) / 5
         self.average_difference_y = (difference_y_1 + difference_y_2 + difference_y_3 + difference_y_4 + difference_y_5) / 5
-        
-
-
+    
 
     def optimize_pixels(self,TrackingData):
         
@@ -148,6 +146,35 @@ class Calibration:
             Tracking_Data_list[5] = Tracking_Data_list[5] - round(self.average_difference_y)
         
         return Tracking_Data_list
+    
+
+class CorrectCurvature:
+    def __init__(self):
+
+        self.c=0.0035 # correction coefficient
+        self.k_r=1.2 # additional correction coefficient for right screen half
+
+        user32 = ctypes.windll.user32   # Reads out current resolution
+        self.screen_width = user32.GetSystemMetrics(0)
+        self.middle_width = screen_width/2
+
+    def correct(self, TrackingData):
+        Tracking_Data_list = list(TrackingData)
+        # First we need to check if we are in the left or the right screen half 
+        # Left side
+        if Tracking_Data[4]<=self.middle_width:
+            correction_value = math.exp(self.c*(self.middle_width-Tracking_Data[4]))
+            Tracking_Data_list[4]=Tracking_Data_list[4]+correction_value
+
+        # Right side
+        else:
+            # This standardizes the x-value to be 0 in the middle. This needs to be done to be able to use the samel formular as on the left side of the screen
+            correction_value = math.exp(self.c*(self.middle_width-(self.screen_width-Tracking_Data[4])))*self.k_r
+            Tracking_Data_list[4]=Tracking_Data_list[4]-correction_value
+
+        return Tracking_Data_list
+            
+    
 
             
 class LookDirection:
@@ -357,9 +384,9 @@ Tracking_Data = "Null", "Null", "Null", "Null", "Null", "Null"
 section_num = 16
 
 # Runs calibration and returns pixel of the buttons and the tracker values
-calibration = Calibration()
-calibration_txt = calibration.calibration()
-print("",calibration_txt)
+#calibration = Calibration()
+#calibration_txt = calibration.calibration()
+#print("",calibration_txt)
 
 # Build the window
 root = tk.Tk()
@@ -384,6 +411,7 @@ eye_tracker = EyeTracker()
 look_direction = LookDirection()
 text_manager = TextManager()
 carla_client = CarlaClient()
+correct_curvature = CorrectCurvature()
 
 
 # Start CARLA simulation as client
@@ -401,7 +429,15 @@ while True:
         start_time = current_time
 
         Tracking_Data_Uncalibrated = eye_tracker.get_trackingdata()
-        Tracking_Data = calibration.optimize_pixels(Tracking_Data_Uncalibrated)
+        # Curvate Correction
+        Tracking_Data_corrected_curvature = correct_curvature.correct(Tracking_Data_Uncalibrated)
+        # Calibration is deactivated for testing purposes of the curvature correction
+        #Tracking_Data = calibration.optimize_pixels(Tracking_Data_corrected_curvature)
+
+        # For testing the original calibration is not done anymore. Only curvature calibration is done.
+        # If calibration needs to be implemented again the curvature correction also needs to applied in line 96 where the calibration takes place.
+        # Curvature Correciton must be done before screen calibration!!
+        Tracking_Data = Tracking_Data_corrected_curvature
 
         # Tracking_Data = eye_tracker.get_trackingdata()
         Look_Direction = look_direction.rough_look_direction(Tracking_Data)

@@ -5,7 +5,9 @@ import numpy as np
 import ctypes
 import carla
 import cv2
-import math 
+import math
+import logging
+import pyautogui
 
 class EyeTracker:
     def __init__(self):
@@ -31,9 +33,9 @@ class EyeTracker:
                     TrackingConfidence.UNRELIABLE: self.red
             }.get(screen_gaze.confidence, self.gray)
 
-            return "Tracker connected", screen_gaze.is_lost, screen_gaze.confidence, confi_col, screen_gaze.x, screen_gaze.y
+            return ["Tracker connected", screen_gaze.is_lost, screen_gaze.confidence, confi_col, screen_gaze.x, screen_gaze.y]
         else:
-            return "Tracker not connected", "Null", "Null", "Null", "Null", "Null"
+            return ["Tracker not connected", "Null", "Null", "Null", "Null", "Null"]
         
 class Calibration:
     def __init__(self):
@@ -151,32 +153,39 @@ class Calibration:
 class CorrectCurvature:
     def __init__(self):
 
-        self.c=0.0035 # correction coefficient
-        self.k_r=1.2 # additional correction coefficient for right screen half
+        self.c=0.012  # correction coefficient
+        self.k_r=1.5 # additional correction coefficient for right screen half
 
         user32 = ctypes.windll.user32   # Reads out current resolution
         self.screen_width = user32.GetSystemMetrics(0)
         self.middle_width = self.screen_width/2
 
     def correct(self, TrackingData):
-        Tracking_Data_list = list(TrackingData)
+        Tracking_Data_list = TrackingData
+        print("correctmethod_Tracking_Data_list: " + str(Tracking_Data_list))
         # First we need to check if we are in the left or the right screen half 
         # Left side
-        if Tracking_Data[4]<=self.middle_width:
-            correction_value = math.exp(self.c*(self.middle_width-Tracking_Data[4]))
-            Tracking_Data_list[4]=Tracking_Data_list[4]+correction_value
+        if(Tracking_Data_list[4]!="Null"):
+            if Tracking_Data_list[4]<=self.middle_width:
+                #correction_value = math.exp(self.c*(self.middle_width-Tracking_Data_list[4]))
+                correction_value = pow((self.c*(self.middle_width-Tracking_Data_list[4])),2)
+                x=self.c*(self.middle_width-Tracking_Data_list[4])
+                print("x: " + str(x))
+                print("correction_value: " + str(correction_value))
+                #correction_value = pow((self.c*(self.middle_width-Tracking_Data_list[4])),4)
 
-        # Right side
-        else:
-            # This standardizes the x-value to be 0 in the middle. This needs to be done to be able to use the samel formular as on the left side of the screen
-            correction_value = math.exp(self.c*(self.middle_width-(self.screen_width-Tracking_Data[4])))*self.k_r
-            Tracking_Data_list[4]=Tracking_Data_list[4]-correction_value
+                Tracking_Data_list[4]=Tracking_Data_list[4]+correction_value
 
-        return Tracking_Data_list
-            
-    
-
-            
+            # Right side
+            else:
+                # This standardizes the x-value to be 0 in the middle. This needs to be done to be able to use the samel formular as on the left side of the screen
+                #correction_value = math.exp(self.c*(self.middle_width-(self.screen_width-Tracking_Data[4])))*self.k_r
+                correction_value = pow((self.c*(self.middle_width-Tracking_Data_list[4])),2)*self.k_r
+                #correction_value = pow(self.c(self.middle_width-Tracking_Data_list[4]),4)
+                Tracking_Data_list[4]=Tracking_Data_list[4]-correction_value
+                
+        return Tracking_Data_list        
+                       
 class LookDirection:
     def __init__(self):
         user32 = ctypes.windll.user32   # Reads out current resolution
@@ -218,7 +227,7 @@ class LookDirection:
 
 class TextManager:
     def __init__(self):
-        self.canvas = tk.Canvas(root, width=700, height=400, bg="lightgray") # Creates a canvas inside the window
+        self.canvas = tk.Canvas(root, width=700, height=400) # Creates a canvas inside the window
         self.canvas.pack()
 
     def update_text(self, tracking_data, rough_look_direction, coordinates): # Creates text output to be displayed on the canvas inside the window
@@ -388,6 +397,9 @@ section_num = 16
 #calibration_txt = calibration.calibration()
 #print("",calibration_txt)
 
+# Logging
+logging.basicConfig(filename="x_y_Track.txt", level=logging.INFO)
+
 # Build the window
 root = tk.Tk()
 root.title("Eye-Tracker")
@@ -428,7 +440,12 @@ while True:
     if current_time - start_time >= frame_interval:
         start_time = current_time
 
+        x, y = pyautogui.position()
+
         Tracking_Data_Uncalibrated = eye_tracker.get_trackingdata()
+        x_1 = Tracking_Data_Uncalibrated[4]
+        y_1 = Tracking_Data_Uncalibrated[5]
+        # print("Unkalibriert: "+str(Tracking_Data_Uncalibrated))
         # Curvate Correction
         Tracking_Data_corrected_curvature = correct_curvature.correct(Tracking_Data_Uncalibrated)
         # Calibration is deactivated for testing purposes of the curvature correction
@@ -438,6 +455,9 @@ while True:
         # If calibration needs to be implemented again the curvature correction also needs to applied in line 96 where the calibration takes place.
         # Curvature Correciton must be done before screen calibration!!
         Tracking_Data = Tracking_Data_corrected_curvature
+        x_2 = Tracking_Data[4]
+        y_2 = Tracking_Data[5]
+        # print("Kalibriert: "+str(Tracking_Data))
 
         # Tracking_Data = eye_tracker.get_trackingdata()
         Look_Direction = look_direction.rough_look_direction(Tracking_Data)
@@ -445,6 +465,9 @@ while True:
         text_manager.update_text(Tracking_Data, Look_Direction, Look_Coordinates)
 
         button2.place(x=Tracking_Data[4]-50/2, y=Tracking_Data[5]-50/2, width=50, height=50)
+        tk.Misc.lift(button2)
+
+        logging.info(f"Mausposition: ({x}, {y}), Unkalibriert: ({x_1}, {y_1}), Kalibriert: ({x_2}, {y_2})")
 
         root.update()
         time.sleep(0.1)

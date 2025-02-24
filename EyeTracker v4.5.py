@@ -156,7 +156,7 @@ class CorrectCurvature:
 
         user32 = ctypes.windll.user32   # Reads out current resolution
         self.screen_width = user32.GetSystemMetrics(0)
-        self.middle_width = screen_width/2
+        self.middle_width = self.screen_width/2
 
     def correct(self, TrackingData):
         Tracking_Data_list = list(TrackingData)

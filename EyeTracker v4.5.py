@@ -7,7 +7,7 @@ import carla
 import cv2
 import math
 import logging
-import pyautogui
+import pyautogui #kann Maus auslesen
 
 class EyeTracker:
     def __init__(self):

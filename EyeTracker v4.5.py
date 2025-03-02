@@ -8,6 +8,7 @@ import cv2
 import math
 import logging
 import pyautogui #kann Maus auslesen
+import csv
 
 class EyeTracker:
     def __init__(self):
@@ -170,8 +171,8 @@ class CorrectCurvature:
                 #correction_value = math.exp(self.c*(self.middle_width-Tracking_Data_list[4]))
                 correction_value = pow((self.c*(self.middle_width-Tracking_Data_list[4])),2)
                 x=self.c*(self.middle_width-Tracking_Data_list[4])
-                print("x: " + str(x))
-                print("correction_value: " + str(correction_value))
+                # print("x: " + str(x))
+                # print("correction_value: " + str(correction_value))
                 #correction_value = pow((self.c*(self.middle_width-Tracking_Data_list[4])),4)
 
                 Tracking_Data_list[4]=Tracking_Data_list[4]+correction_value
@@ -385,6 +386,19 @@ class CarlaClient:
         cv2.imshow("Kameraausgabe_rgb", array)
         cv2.waitKey(1)  
 
+class csv_Logger:
+    def __init__(self):
+        timestamp = time.strftime("%Y%m%d_%H%M%S")
+        self.filename = f"log_{timestamp}.csv"
+
+        with open(self.filename, mode="w", newline="") as file:
+            writer = csv.writer(file)
+            writer.writerow(["Mauspos. x", "Mauspos. y", "Unkorrigiert x", "Unkorrigiert y", "Korrigiert x", "Korrigiert y"])
+
+    def log_data(self, data):
+        with open(self.filename, mode="a", newline="") as file:
+            writer = csv.writer(file)
+            writer.writerow(data)
 
 # Define inital value basic variables
 tag = "Null"
@@ -399,6 +413,8 @@ section_num = 16
 
 # Logging
 logging.basicConfig(filename="x_y_Track.txt", level=logging.INFO)
+
+logger = csv_Logger()
 
 # Build the window
 root = tk.Tk()
@@ -468,6 +484,8 @@ while True:
         tk.Misc.lift(button2)
 
         logging.info(f"Mausposition: ({x}, {y}), Unkalibriert: ({x_1}, {y_1}), Kalibriert: ({x_2}, {y_2})")
+        data = [x, y, x_1, y_1, x_2, y_2]
+        logger.log_data(data)
 
         root.update()
         time.sleep(0.1)

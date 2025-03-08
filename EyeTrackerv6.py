@@ -380,7 +380,7 @@ class CarlaClient:
                 25: "Ground",
                 26: "Bridge",
                 27: "RailTrack",
-                28: "RailTrack"
+                28: "GuardRail"
             }
 
             tag = red_to_tag_mapping.get(r, "Unknown")  

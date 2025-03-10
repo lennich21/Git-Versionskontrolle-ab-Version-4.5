@@ -6,7 +6,6 @@ import ctypes
 import carla
 import cv2
 import math
-import logging
 import pyautogui
 import csv
 
@@ -126,7 +125,7 @@ class Calibration:
         difference_y_4 = self.y[3] - self.positions[3][1]
         difference_y_5 = self.y[4] - self.positions[4][1]
 
-        # print(difference_x_1, difference_x_2, difference_x_3, difference_x_4, difference_x_5)
+        #print(difference_x_1, difference_x_2, difference_x_3, difference_x_4, difference_x_5)
 
         self.average_difference_x = (difference_x_1 + difference_x_2 + difference_x_3 + difference_x_4 + difference_x_5) / 5
         self.average_difference_y = (difference_y_1 + difference_y_2 + difference_y_3 + difference_y_4 + difference_y_5) / 5
@@ -146,47 +145,41 @@ class Calibration:
 class CorrectCurvature:
     def __init__(self):
 
-        self.c=0.03  # correction coefficient
-        self.k_r=1 # additional correction coefficient for right screen half
+        #self.k_r=1 # additional correction coefficient for right screen half for quadratic function (not used in V-function)
+
+        self.c=0.03
         self.d=100
-        self.c2=0.013
         self.p=1.4
-        self.p2=1.5
         self.gamma=0.0005
+
+        self.c2=0.013
+        self.d2=100
+        self.p2=1.5
         self.gamma2=0.0012
 
         user32 = ctypes.windll.user32   # Reads out current resolution
         self.screen_width = user32.GetSystemMetrics(0)
         self.middle_width = self.screen_width/2
 
-    def correct(self, TrackingData):
-        Tracking_Data_list = TrackingData
-        print("correctmethod_Tracking_Data_list: " + str(Tracking_Data_list))
-        # First we need to check if we are in the left or the right screen half 
-        # Left side
-        if(Tracking_Data_list[4]!="Null"):
-            if Tracking_Data_list[4]<=self.middle_width:
-                #correction_value = math.exp(self.c*(self.middle_width-Tracking_Data_list[4]))
-                #correction_value = pow((self.c*(self.middle_width-Tracking_Data_list[4])),2)
-                # x=self.c*(self.middle_width-Tracking_Data_list[4])
-                # print("x: " + str(x))
-                # print("correction_value: " + str(correction_value))
-                #correction_value = pow((self.c*(self.middle_width-Tracking_Data_list[4])),4)
-                correction_value = (pow((self.c*abs(self.middle_width-Tracking_Data_list[4])+self.d),self.p))*(1-math.exp(-self.gamma * abs(self.middle_width-Tracking_Data_list[4])))
-
-                Tracking_Data_list[4]=Tracking_Data_list[4]+correction_value
+    def correct(self, tracking_data):
+        if(tracking_data[4]!="Null"):
+            # Checks if left or right correction is used 
+            # Left side
+            if tracking_data[4]<=self.middle_width:
+                #correction_value = pow((self.c*(self.middle_width-tracking_data[4])),2) # quadratic function with power 2
+                #correction_value = pow((self.c*(self.middle_width-tracking_data[4])),4) # quadratic function with power 4
+                correction_value = (pow((self.c*abs(self.middle_width-tracking_data[4])+self.d),self.p))*(1-math.exp(-self.gamma*abs(self.middle_width-tracking_data[4]))) # V-function
+                tracking_data[4]=round(tracking_data[4]+correction_value)
 
             # Right side
             else:
-                # This standardizes the x-value to be 0 in the middle. This needs to be done to be able to use the samel formular as on the left side of the screen
-                #correction_value = math.exp(self.c*(self.middle_width-(self.screen_width-Tracking_Data[4])))*self.k_r
-                #correction_value = pow((self.c*(self.middle_width-Tracking_Data_list[4])),2)*self.k_r
-                #correction_value = pow(self.c(self.middle_width-Tracking_Data_list[4]),4)
-                correction_value = (pow((self.c2*abs(self.middle_width-Tracking_Data_list[4])+self.d),self.p2))*(1-math.exp(-self.gamma2 * abs(self.middle_width-Tracking_Data_list[4]))) * self.k_r
-                Tracking_Data_list[4]=Tracking_Data_list[4]-correction_value
+                #correction_value = pow((self.c*(self.middle_width-tracking_data[4])),2)*self.k_r # quadratic function with power 2
+                #correction_value = pow((self.c*(self.middle_width-tracking_data[4])),4)*self.k_r # quadratic function with power 4
+                correction_value = (pow((self.c2*abs(self.middle_width-tracking_data[4])+self.d2),self.p2))*(1-math.exp(-self.gamma2*abs(self.middle_width-tracking_data[4]))) # V-function
+                tracking_data[4]=round(tracking_data[4]-correction_value)
                 
-        return Tracking_Data_list        
-                       
+        return tracking_data
+
 class LookDirection:
     def __init__(self):
         user32 = ctypes.windll.user32   # Reads out current resolution
@@ -475,9 +468,9 @@ while True:
         x_2 = tracking_data[4]
         y_2 = tracking_data[5]
 
-        look_direction = look_direction.look_direction_rough(tracking_data)
-        look_coordinates = look_direction.look_direction_coordinates(tracking_data, section_amount)
-        text_manager.update_text(tracking_data, look_direction, look_coordinates)
+        look_dir= look_direction.look_direction_rough(tracking_data)
+        look_coord = look_direction.look_direction_coordinates(tracking_data, section_amount)
+        text_manager.update_text(tracking_data, look_dir, look_coord)
 
         marker.place(x=tracking_data[4]-50/2, y=tracking_data[5]-50/2, width=50, height=50)
         tk.Misc.lift(marker)

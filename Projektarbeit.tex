@@ -52,10 +52,10 @@
 
 
 
-\title{Implementieren eines Eye-Tracking Systems in den Fahrsimulator der Hochschule}
+\title{Implementierung eines Eye-Tracking Systems in den Fahrsimulator der Hochschule Karlsruhe}
 
 \author{\Large Projektarbeit \\ \\ Jonas Verleger, Lenard Haas}
-\date{März 2025}
+\date{... April 2025}
 
 \newacronym{api}{API}{Application Programming Interface}
 
@@ -76,32 +76,38 @@
 
 
 \section{Einführung}
-
-\subsection{Hintergrund}
-
 \setlength{\parskip}{6pt plus 2pt minus 1pt}
-Erster Absatz \par
 
-\noindent Zweiter Absatz.\par 
+Die Analyse des menschlichen Fahrverhaltens erfordert bedingt durch die Komplexität der Eingangsvariablen einen großen Betrachtungswinkel. Hierbei hilft es Simulationen zu nutzen, um alle erdenklichen Szenarien ohne Gefahren testen zu können. Das Institut für Energieeffiziente Mobilität (IEEM) entwickelt hierzu ein Simulationsframework mit Fahrsimulatoren in unterschiedlicher Realitätsnähe.
+
+Als Softwarebasis dient das Open-Source-Projekt CARLA. In CARLA ist es möglich, verschiedene Verkehrsszenarien und Wetterbedingungen einzustellen. Die Server-Client Struktur von CARLA lässt ebenso mehrere Probanden in demselben Verkehrsszenario zu.
+
+Für die Analyse des Fahrverhaltens wird mindestens die Auswertung der Fahrzeugdaten (z. B.: der zurückgelegte Weg, einwirkende Kräfte) benötigt. Da das menschliche Fahrverhalten höchst komplex ist, eignen sich für eine ausreichende Analyse ebenfalls die Fahrerentscheidungen. Nach einem Fahrversuch können Probanden befragt werden, warum sie welche Entscheidungen getroffen haben. Dennoch bietet es sich an Echtzeitdaten der Probanden aufzuzeichnen.
+
+Eine große Rolle zum Treffen von Entscheidungen spielt die Sicht. Hierdurch wird klar, was die Probanden bei der Testfahrt sehen, worauf diese sich konzentrieren und welchen Fahrweg sie nehmen werden. Für die Datenerhebung der Sich eignet sich ein sogenannter Eye-Tracker.
 
 \subsection{Zielsetzung}
 
-Hier die Ziele definieren 
+Im Rahmen dieser Projektarbeit soll ein kamerabasierter Eye-Tracking Algorithmus entwickelt werden, der in die CARLA Simulationsumgebung integriert wird.
+
+Dazu werden mögliche Eye-Tracker auf die Anwendbarkeit und Integration in CARLA analysiert. Ebenfalls wird eine Simulation in CARLA erstellt, um den Eye-Tracker zu testen. Weitere Vorgaben sind die Projektion des Blickpunktes auf die Leinwand und eine Ausgabe der aufgezeichneten Daten.
 
 \subsection{Lösungsansatz}
 
+Um das Erreichen der Ziele gewährleisten zu können, wird sich zuerst mit den Grundlagen von Eye-Trackern und der CARLA-Simulationsumgebung befasst. Für die Integration in das Gesamtsystem wird ein objektorientierter Python Code entwickelt. Der Code soll den Blickpunkt des Probanden als Pixel ausgeben und mit CARLA austauschen können. Ebenfalls wird die benötigte Rechenleistung minimiert. Die Ausgabe der erhobenen Daten erfolgt in Echtzeit über ein Fenster und wird im .csv-Format abgespeichert.
+
 \section{Eye Tracker Grundlagen}
 
-\subsection{Allgemeines}
-Hier kommt der Text von Jonas rein zu Eye Tracker allgemein, Eye Tracker Funktionsweisen
+Die Aufzeichnung der Blickposition im Raum kann mithilfe einer Kamera und einer Positionsberechnung durchgeführt werden. Ein Algorithmus zur Berechnung lässt sich über die Lichteigenschaften herleiten. Lichtstrahlen verlaufen direkt von einer Quelle zu einem Objekt und werden mit dem gleichen Austrittswinkel reflektiert, wie der Eintrittswinkel. Die Brechung von Licht durch Linsen oder Gase wird bei dieser Annahme ignoriert. Über die Kenntnis, wo sich die Kamera, welche die Augen aufzeichnet, befindet, wird es durch eine anfängliche Kalibrierung mit fest definierten Punkten ermöglicht, Rückschlüsse auf die Blickposition zu berechnen. So entsteht ein Eye-Tracking Algorithmus. \textcolor{red}{QUELLE}
 
-\subsection{Marktanalyse}
-JONAS: Marktanalyse der verfügbaren Eye Tracker
+Im Sinne des zeitlichen Rahmens des Projektes wird eine Marktanalyse durchgeführt, um verfügbare Eye-Tracker auf derer Anwendbarkeit, Integration in CARLA und Kosten zu untersuchen. Einen eigenen Algorithmus zur Berechnung der Blickposition und der Integration in ein funktionierendes Programm zu entwickeln, kann selbst eine Projektarbeit widerspiegeln.
 
+\subsection{Marktanalyse} 
 
-Auf Grundlage der Zielsetzung und des von uns grob erarbeiteten Lösungsansatzes werden unterschiedliche Eye Tracker Systeme auf ihre Verwendbarkeit im Fahrsimulator untersucht. 
+Ein erster Softwarekandidat ist ein Open Source Tracking Projekt auf GitHub \textcolor{red}{QUELLE}. Die Ausgabe dieses Trackers ist in Abbildung \ref{fig:old_tracker_face_gaze_webcam} zu erkennen. Das System orientiert sich hauptsächlich an den Augen und der Nase der Testperson. Dadurch kann es recht genau bestimmen, in welche Richtung der Kopf einer betrachteten Person geneigt ist. Zudem kann die Software das Blinzeln der Augen erkennen. Hierdurch kann theoretisch eine Analyse durchgeführt werden, welche die Reaktionszeit mit einem Blinzeln in Relation setzt. In diesem Projekt fällt ein solcher Betrachtungswinkel weg.
 
-Ein erster Softwarekandidat ist ein Open Source Tracking Projekt auf GitHub. Die Ausgabe dieses Trackers ist in Abbildung \ref{fig:old_tracker_face_gaze_webcam} zu erkennen. Das System orientiert sich hauptsächlich an den Augen und der Nase der Testperson. Dadurch kann es recht genau bestimmen, in welche Richtung der Kopf einer getrackten Person geneigt ist. Zudem kann die Software das Blinzeln der Augen erkennen. Das kann in verschiedenen Anwendungsszenarien Sinn machen, für uns ist die Funktion nicht relevant. Die Software schätzt nicht die Blickposition der Testperson auf dem Bildschirm, sondern gibt nur an, in welcher Lage sich der Kopf befindet. Diese Daten könnten aber als Grundlage dienen für eine Weiterentwicklung. Da allerdings nur die Ausrichtung des Gesichts und nicht der Pupillen in die Ausgabe einfließt, erwarten wir keine besonders genauen Ergebnisse durch diese Herangehensweise. 
+Die Software schätzt nicht die Blickposition der Testperson auf dem Bildschirm, sondern gibt nur an, in welcher Lage sich der Kopf befindet. Diese Daten könnten aber als Grundlage dienen für eine Weiterentwicklung. Da allerdings nur die Ausrichtung des Gesichts und nicht der Pupillen in die Ausgabe einfließt, erwarten wir keine besonders genauen Ergebnisse durch diese Herangehensweise.
+
 \begin{figure}[h!]
 \begin{center}
 \includegraphics[scale=0.4]{old_tracker_face_gaze_webcam}
@@ -120,8 +126,19 @@ Eine weitere Option stellt das open source Projekt eyegaze Tracker dar. Diese So
 
 Neben den oben genannten Projekten wurden auch noch einige weitere auf ihre Einsetzbarkeit in diesem Projekt untersucht. Diese hatten größtenteils ähnliche Eigenschaften und Einschränkungen. Es wurde sich nach viel Recherche und Experimenten für den Beam Eye Tracker von Eyeware Tech entschieden. Dieser hat unsere Anforderungen grundlegend erfüllt und soll als Basis für die weitere Entwicklung dienen.
 
-
-
+\begin{tabular}{|c|c|c|}
+\hline
+ & Vorteile & Nachteile \\
+\hline
+Eyeware Tech SA \\ Beam Eye Tracker & ... & ... \\
+\hline
+Tobii \\ Pro Spark & ... & ... \\
+\hline
+SR Research \\ EyeLink 1000 Plus & ... & ... \\
+\hline
+Pupil Labs \\ Core & ... & ... \\
+\hline
+\end{tabular}
 
 \subsection{Beam Eye Tracker}
 Genauere Beschreibung von Beam Eye Tracker
@@ -130,13 +147,9 @@ Auf der Seite der Beam SDK auf jeden Fall den Abschnitt "API Overview" hier mit 
 
 Hier auch dazu schreiben, dass es preiswert ist und dass wir es geschafft haben für die Uni eine kostenlose Vollversion auf Lebenszeit zu erhalten
 
-
-
-
-
 \section{Implementierung Eye Tracker}
 
-\subsection{Einrichtung im Fahrsimualtor}
+\subsection{Einrichtung im Fahrsimulator}
 
 Eyeware Tech setzt bei ihrem Beam Eye Tracker auf einfache Hardware. Dieser arbeitet mit einer einfachen USB Webcam oder mit einem an den Computer angeschlossenen Smartphone-Kamera. Damit der Einsatz des Eye Trackers im Fahrsimulator gelingt, müssen einige Punkte beachtet werden. 
 

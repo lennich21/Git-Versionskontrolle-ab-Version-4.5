@@ -1,0 +1,223 @@
+\documentclass[IEEM]{HKA} % The options IEEM, MMT, and EIT are available
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	LANGUAGE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setdefaultlanguage{german} % english or german 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	PACAKGES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This package is only used in the demo and should be removed for the actual thesis.
+\usepackage[backgroundcolor=white,linecolor=red,bordercolor=red,textsize=footnotesize]{todonotes}
+% Wird benötigt, um Grafiken einzufügen
+\usepackage{graphicx}
+\usepackage{tabularx}
+% Wird für Tabellen benötigt
+\usepackage{booktabs} 
+\usepackage[nohyperlinks, printonlyused]{acronym}
+% Wird benötigt, um selbst Grafiken zeichnen zu können
+\usepackage{tikz}
+% Wird benötigt, um bestimmte Symbole in Abbildungen zu zeichnen
+\usepackage{amsmath}
+\usepackage{amssymb}
+% Wird benötigt, um Wikel zeichnen zu können
+\usetikzlibrary{angles, quotes}
+% Wird zur besseren Positionierung von Grafiken oder Tabellen gebraucht
+\usepackage{float}
+\usepackage[utf8]{inputenc}
+% Dieses Paket wird benötigt, um automatisch ein Abkürzungsverzeichnis zu generieren
+\usepackage{glossaries}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	COMMANDS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\newcommand{cmd}{def} Define new commands if necessary
+\graphicspath{ {./Bilder/} }
+
+
+
+%%%%% Glossar 
+\makeglossaries
+
+
+
+\newglossaryentry{latex}
+{
+	name=latex,
+	description={Is a markup language specially suited for scientific documents}
+}
+
+\newglossaryentry{Spawnpunkt}
+{
+	name=Spawnpunkt,
+	description={Bezeichnet eine 2D oder 3D Koordinate in einer Simulationsumgebung oder in einem Videospiel, an welchem virtuelle Objekte instanziiert werden}
+}
+
+%%%%%% Abkürzungsverzeichnis 
+
+\newacronym{api}{API}{Application Programming Interface}
+
+\newacronym{rgb}{RGB}{Rot, Grün, Blau (Farbraum)}
+
+\newacronym{id}{ID}{Identifikationsnummer}
+
+\newacronym{sdk}{SDK}{Software Development Kit}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	META DATA
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Comment out or delete what you don't need
+
+% THESIS TYPE: One of the following types must be chosen
+% \dissertation			- Dissertation
+% \masterthesis			- Master Thesis
+% \bachelorthesis		- Bachelor Thesis
+% \projectbachelor		- Development Project (Bachelor)
+% \projectmaster		- Development Project (Master)
+% \firstprojectmaster	- Development and Research Project 1 (Master)
+% \secondprojectmaster	- Development and Research Project 2 (Master)
+\thesistype{\projectmaster} 
+
+
+% NON-DISCLOSURE AGREEMENT. This only needs to be specified in case your work includes confidential information or data, for example, when your work is done in cooperation with an industry company. Otherwise, this command can be deleted or commented out. In case the non-disclosure agreement is necessary, a date and the name of the organisation needs to be provided. The date specifies the earliest point in time at which your work can be viewed by HKA memebers other than your supervisors and reviewers.
+%\nonDisclosure{31.03.2028}{Example GmbH}
+
+
+% ACADEMIC TITLE: Only necessary for dissertations, bachelor theses, and master theses.
+\academicdegreeshort{M. Sc.}
+\academicdegreefull{Master of Science}
+
+
+% AUTHORS: 1 - 6 authors can be specified. Dissertations, bachelor, and master theses have one author
+\place{Karlsruhe} % Birthplace of the author, only necessary for dissertations, bachelor theses, and master theses
+\authors
+{Lenard Haas} % Author 1
+{Jonas Verleger} % Author 2
+{} % ...
+{}
+{}
+{}
+
+\studentnumbers
+{90272} % Student number author 1
+{}  % Student number author 2
+{} % ...
+{}
+{}
+{}
+
+
+
+% TITLE
+\title{Implementierung eines Eye-Tracking Systems in den Fahrsimulator der Hochschule Karlsruhe}
+
+% TIME FRAME
+\timeframe{01.11.2025 - 01.06.2025} % Delete for dissertations
+\submissiondate{Mai 2025}
+
+% EXAMINERS: The dean is only necessary for student projects (maybe also for dissertations). The third examiner is usually necessary for theses in industry or for dissertations with an external reviewer.  
+%\dean{Prof. Dr.-Ing. Robert Weiß} 
+
+\firstexaminer
+{Patrick Rebling M.Sc.}
+{Institute of Energy Efficient Mobility}
+{Karlsruhe University of Applied Sciences}
+
+\secondexaminer
+{Prof. Dr.-Ing. Philipp Nenninger}
+{Institute of Energy Efficient Mobility}
+{Karlsruhe University of Applied Sciences}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	BIBLIOGRAPHY
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Loads bibliography for citations.
+\preto\fullcite{\AtNextCite{\defcounter{maxnames}{99}}}
+
+
+\addbibresource{literatur.bib}
+% Sorgt dafür, dass die Abbildungsnummierung nicht die Kapitelnummerierung vor dem Komma stehen hat.
+\counterwithout{equation}{chapter}
+\counterwithout{figure}{chapter}
+
+\setcounter{biburlnumpenalty}{10000} % break on URL numbers
+\setcounter{biburllcpenalty}{10000} % break on URL lower case letters
+\setcounter{biburlucpenalty}{10000} % break on URL UPPER CASE letters
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	DOCUMENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%	FRONT MATTER
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% Comment out or delete inputs you don't need
+	\frontmatter
+	\maketitle
+	%\acknowledge{\input{frontmatter/acknowledgement}}
+	\abstract{\input{frontmatter/abstract}}
+	\zusammenfassung{\input{frontmatter/zusammenfassung}}
+%	\publications{\input{frontmatter/publications}}
+%	\furtherpublications{\input{frontmatter/furtherpublications}}
+	\tableofcontents
+	\addcontentsline{toc}{chapter}{\contentsname}
+	
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%	MAIN MATTER
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% Comment out or delete inputs you don't need. Add additional chapters if necessary
+	\mainmatter
+	\input{mainmatter/Introduction}
+	\input{mainmatter/Background}
+	\input{mainmatter/Concept}
+	\input{mainmatter/Implementation}
+	\input{mainmatter/Evaluation}
+	\input{mainmatter/Conclusion}
+	
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%	APPENDIX
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% Comment out or delete inputs you don't need. Add additional chapters if necessary
+	\appendix
+	\addtocontents{toc}{\protect\contentsline{chapter}{Appendix}{}{}}
+	\input{appendix/AppendixA}
+	\input{appendix/AppendixB}
+	
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%	BACK MATTER
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% Comment out or delete inputs you don't need
+	\backmatter
+	\listoffigures
+	\addcontentsline{toc}{chapter}{\listfigurename}
+	\newpage
+	\listoftables
+	\addcontentsline{toc}{chapter}{\listtablename}
+	\newpage
+	\listofalgorithms
+	\addcontentsline{toc}{chapter}{\listofalgorithmsname}
+	\newpage
+	\lstlistoflistings
+	\addcontentsline{toc}{chapter}{\lstlistlistingname}
+	\abbrevations{\input{backmatter/abbreviations}}
+	\symbollist{\input{backmatter/symbols}}
+	
+	% Bibliography
+	\printbibliography[heading=bibintoc]	
+		
+		
+\end{document}
+

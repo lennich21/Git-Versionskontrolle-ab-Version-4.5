@@ -1,0 +1,91 @@
+/////ERSTES DIAGRAMM
+
+
+
+// diagram level application
+colorMode bold
+typeface mono
+
+// node level application
+Host PC [color: green, colorMode: bold]
+Carla Server [color: orange, colorMode: bold]
+Carla Client [color: blue, colorMode: bold]
+
+
+
+Host PC [icon: monitor]
+Carla Server [icon: Server]
+Carla Client [icon: client]
+
+Host PC [icon: monitor] > Carla Client: Run
+
+Host PC [icon: monitor] > Carla Server [icon: Server]: Run
+
+
+Carla Client > Carla Server [icon: Server]: Connect to Carla Server
+
+Carla Server [icon: Server] --> Carla Client: Connection established
+
+Carla Client > Carla Server [icon: Server]: Get world & spawn points
+
+Carla Server [icon: Server] --> Carla Client: World & spawn points
+
+Carla Client > Carla Server [icon: Server]: Get all actors 
+
+Carla Server --> Carla Client: actors (including vehicles & sensors)
+
+loop [label: Destroy sensors, color: red] {
+  Carla Client > Carla Server [icon: Server]: Destroy
+}
+
+loop [label: Destroy vehicles, color: red] {
+  Carla Client > Carla Server [icon: Server]: Destroy
+}
+
+Carla Client > Carla Server [icon: Server]: Try spawn Mercedes Sprinter
+
+Carla Server [icon: Server] --> Carla Client: Mercedes Sprinter
+
+
+
+
+/////ZWEITES DIAGRAMM
+
+
+// diagram level application
+colorMode bold
+typeface mono
+
+// node level application
+Host PC [color: green, colorMode: bold]
+Carla Server [color: orange, colorMode: bold]
+Carla Client [color: blue, colorMode: bold]
+
+
+
+Host PC [icon: monitor]
+Carla Server [icon: Carla Server]
+Carla Client [icon: client]
+
+
+Carla Client > Carla Server [icon: Carla Server]: Try spawn RGB sensor at position of Mercedes Sprinter
+
+Carla Server --> Carla Client: RGB sensor
+
+Carla Client > Carla Server [icon: Carla Server]: Try spawn instance segmentation sensor at position of Mercedes Sprinter
+
+Carla Server --> Carla Client: Instance segmentation sensor
+
+Carla Client > Carla Server [icon: Carla Server]: Set autopilot true for Mercedes Sprinter
+
+
+img [label: Process RGB image, color: blue] {
+  Carla Client > Carla Server: Get RGB image data
+  Carla Server --> Carla Client: RGB image data
+}
+
+img [label: Process instance segmentation image, color: green] {
+  Carla Client > Carla Server: Get instance segmentation image data
+  Carla Server --> Carla Client: instance segmentation image data
+}
+

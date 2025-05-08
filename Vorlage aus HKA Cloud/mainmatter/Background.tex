@@ -1,0 +1,60 @@
+\chapter{Eye Tracker}
+\label{sec:eye tracker}
+
+In diesem Kapitel wird ein grober technischer Einblick in die Funktionen eines Eye-Trackers geliefert. Daraufhin wird im Sinne des zeitlichen Rahmens des Projektes eine Marktanalyse durchgeführt, um verfügbare Eye-Tracker auf derer Anwendbarkeit, Integration in CARLA und Kosten zu untersuchen.
+
+\section{Technische Grundlagen}
+
+Die Hardwarevoraussetzungen für einen Eye-Tracker belaufen sich auf eine Kamera, Lichtquellen und einen Computer. Für die Kamera genügt eine einfache Webcam. Die Genauigkeit des Eye-Trackers kann gesteigert werden, indem eine hochauflösende und schnell aufzeichnende Kamera genutzt wird. Besonders eignet sich eine Infrarotkamera, weil im Nachgang in der Bildverarbeitung eine Graustufen Konvertierung durchgeführt wird. Zudem ermöglicht eine hohe Aufzeichnungsfrequenz der Kamera die Analyse von schnellen Blicksprüngen.
+
+Die Genauigkeit des Eye-Trackers kann ebenso durch gute Beleuchtung vom Gesicht des Probanden verbessert werden. Um dabei nicht für ein Blenden zu sorgen, kann eine Infrarotquelle genutzt werden. Das erfordert zwingend eine Infrarotkamera, um den Effekt der besseren Beleuchtung ausnutzen zu können. Weiterreichend muss der Computer, welcher die Bildverarbeitung durchführt, ausreichend Rechenleistung liefern. Dadurch können Berechnung und Analyse in einer höheren Frequenz erfolgen, wodurch die Genauigkeit ebenfalls gesteigert werden kann.
+
+Um die Pupillen zu erkennen, wird das aufgezeichnete Kamerabild vorverarbeitet. Die Graustufen Konvertierung sorgt für eine Vereinfachung der Bildverarbeitung, indem Farbinformationen entfernt werden. Optional kann eine Rauschfilterung implementiert werden. Bei fordernden Hintergründen oder unzureichender Belichtung sorgt die Filterung für eine Verbesserung der Ergebnisse. Als letzten Schritt der Vorverarbeitung wird der Kontrast verstärkt, sodass Merkmale besser erkannt werden können.
+
+\textcolor{red}{BILD mit Vorverarbeitungsschritten}
+
+Mit dem vorverarbeiteten Bild erfolgt die Merkmalerkennung. Die Pupillen können mittels verschiedener Verfahren erkannt werden. Ein einfacher, aber ungenauer Weg ist das Schwellenwertverfahren. Hierbei wird ein fester Wert und Ort deklariert, in welchem die Pupillen liegen können. Bei falscher Parametrisierung kann es somit zur falschen Erkennung kommen. Die Hough-Transformation ermöglicht eine robustere Erkennung, da Kreise erkannt werden können \textcolor{red}{QUELLE}. Maschinelles Lernen kann ebenso genutzt werden, um ein breiteres Spektrum an möglichen Pupillenpositionen im Kamerabild abzudecken. Durch maschinelles Lernen können weitergehend kompliziertere Situationen bei der Bildaufzeichnung geregelt werden.
+
+Bei Nutzung einer Infrarotkamera kann die Reflektion des Infrarotlichtes auf der Hornhautoberfläche des Auge identifiziert werden. Diese Reflektion, genannt Glint, sorgt für eine Trennung der Pupillenposition und dem Kameraaufzeichnungswinkel \textcolor{red}{QUELLE}. Optional lässt sich die Augenumrandung zur zusätzlichen Orientierung mit analysieren.
+
+\textcolor{red}{BILD mit Merkmalen}
+
+Die Berechnung der Blickrichtung auf den Bildschirm erfolgt durch geometrische Modelle. Optional kann maschinelles Lernen eingesetzt werden. Für die Abbildung der Blickposition wird eine Kalibrierung benötigt. Diese erfolgt zu Beginn des Aufzeichnungsprozesses über fest definierte Punkte auf dem Bildschirm. Dadurch wird die Pupillenposition einer Bildschirmkoordinate zugeordnet. Mithilfe geometrischer Modelle wird eine Funktion berechnet, die basierend auf der Kalibrierung alle Bildschirmpunkte abdeckt. Die Genauigkeit kann über die Glint-Messung verbessert werden. Hierdurch lässt sich ein Vektor zwischen dem Pupillenmittelpunkt und der Glint-Position berechnen. Die Veränderung des Vektors nach der Kalibrierung hilft der Abbildung des Blickes auf dem Bildschirm.
+
+Der fertige Eye-Tracker gibt die berechnete Blickposition als x-/y-Koordinate für den Bildschirm aus. Optional können weitere Funktionen hinzugefügt werden, wie beispielsweise das Zeichnen des Blickpunktes auf den Bildschirm, die zeitliche Analyse von Blickpunkten und die Abspeicherung der gemessenen Werte.
+
+\section{Marktanalyse} 
+
+Da die Entwicklung eines eigenen Eye-Tracking Algorithmus den zeitlichen Rahmen der Projektarbeit übersteigt, wird eine Marktanalyse von Eye-Trackern durchgeführt.
+
+Ein erster Softwarekandidat ist ein Open Source Tracking Projekt auf GitHub \textcolor{red}{QUELLE}. Die Ausgabe dieses Trackers ist in Abbildung \ref{fig:old_tracker_face_gaze_webcam} zu erkennen. Das System orientiert sich hauptsächlich an den Augen und der Nase der Testperson. Dadurch kann es recht genau bestimmen, in welche Richtung der Kopf einer betrachteten Person geneigt ist. Zudem kann die Software das Blinzeln der Augen erkennen. Hierdurch kann theoretisch eine Analyse durchgeführt werden, welche die Reaktionszeit mit einem Blinzeln in Relation setzt. In diesem Projekt fällt ein solcher Betrachtungswinkel weg.
+
+Die Software schätzt nicht die Blickposition der Testperson auf dem Bildschirm, sondern gibt nur an, in welcher Lage sich der Kopf befindet. Diese Daten könnten aber als Grundlage dienen für eine Weiterentwicklung. Da allerdings nur die Ausrichtung des Gesichts und nicht der Pupillen in die Ausgabe einfließt, erwarten wir keine besonders genauen Ergebnisse durch diese Herangehensweise.
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[scale=0.4]{old_tracker_face_gaze_webcam}
+		\caption{Ausgabe des Face-Gaze-Trackers, Quelle: \cite{lit_code_github_facegazetracker}} \label{fig:old_tracker_face_gaze_webcam}
+	\end{center}
+\end{figure}
+
+Eine weitere Option stellt das open source Projekt eyegaze Tracker dar. Diese Software erfasst nicht die Gesichtsausrichtung, sondern die Pupillen. Dadurch kann sie Aussagen über die grobe Blickrichtung treffen. So wie in Abbildung \ref{fig:old_tracker_eyegaze_webcam} zu erkennen, kann bspw. die Aussage getroffen werden, dass die Testperson nach links schaut. Auch hier wird keine Blickposition auf dem Bildschirm geschätzt. Allerdings werden die Pupillen erfasst und die grobe Blickrichtung bestimmt. Die Blickposition kann gegebenenfalls mit den vorhandenen Daten durch eine Weiterentwicklung des vorhandenen open source Codes bestimmt werden. Dies würde allerdings sehr viel Entwicklungsaufwand bedeuten. 
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[scale=0.4]{old_tracker_eyegaze_webcam}
+		\caption{Ausgabe des Eyegaze-Trackers, Quelle: \cite{lit_code_github_gazetracking}} \label{fig:old_tracker_eyegaze_webcam}
+	\end{center}
+\end{figure}
+
+Neben den oben genannten Projekten wurden auch noch einige weitere auf ihre Einsetzbarkeit in diesem Projekt untersucht. Diese hatten größtenteils ähnliche Eigenschaften und Einschränkungen. Es wurde sich nach viel Recherche und Experimenten für den Beam Eye Tracker von Eyeware Tech entschieden. Dieser hat unsere Anforderungen grundlegend erfüllt und soll als Basis für die weitere Entwicklung dienen.
+
+\section{Beam Eye Tracker}
+
+Der Beam Eye Tracker ist für Gaming-Anwendungen und einfacher Nutzung entwickelt. Mithilfe einer einfachen Webcam erzeugt Beam die Blickposition auf dem Bildschirm. Ebenso verfügt das Programm über eine Kopfpositionserkennung relativ zum Bildschirm. Durch die Funktion "Gaming Erweiterungen" teilt Beam die Trackingdaten mit anderen Programmen. Diese Schnittstelle ermöglicht die Nutzung der Trackingdaten für eigene Programme via des Beam Software Development Kit.
+
+\textcolor{red}{BILD vom Beam UI}
+
+Die Beam API kann über die Programmiersprachen C++, C, C\# und Python angesprochen werden. Im Rahmen dieser Projektarbeit wird die Python Integration genutzt. Verschiedene Klassen in der API ermöglichen eine individuelle Nutzung des eigenen Programmes. Relevant für diese Projektarbeit ist die Klasse \glqq{}screen\_gaze\_info\grqq{}. Diese beinhaltet die x- und y- Koordinaten und die Angaben, ob die Augen erkannt werden und wie sicher diese Erkennung ist.
+
+Durch die einfache Nutzung der Beam SDK und dem Preis von 29,99 € des Eye-Trackers fiel die Entscheidung, diesen für das Projekt zu nutzen. In Rücksprache mit den Beam Entwicklern wurde der Beam Eye Tracker für dieses Projekt kostenlos zur Verfügung gestellt.

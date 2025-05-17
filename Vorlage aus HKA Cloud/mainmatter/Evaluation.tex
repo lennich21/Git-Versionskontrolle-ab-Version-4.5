@@ -231,7 +231,7 @@ Bei der Transformation ist nur die Horizontale von Relevanz. Vertikale Pixel mü
 In Abbildung \ref{fig:kruemmungsproblem_4} ist der Vektor von der Sitzposition zur Mitte der gekrümmten Leinwand durch a.) gegeben. Die Testperson schaut bezogen auf die gekrümmte Leinwand in Richtung Pfeil d.). Der Eye Tracker würde jetzt allerdings den Punkt auf welchen Pfeil b.) zeigt erkennen. Dieser würde wiederum mit einem anderen Punkt auf dem Halbkreis korrespondieren. Welcher in der Abbildung nicht dargestellt wird, weil es sonst zu unübersichtlich wird. Wichtig ist, dass die Ausgabe des Eye Trackers so transformiert wird, dass er anstatt den Punkt auf welchen Pfeil b.) zeigt, den Punkt, auf welchen Pfeil c.) zeigt, ausgibt. Es muss also eine Transformation um den Fehler $\Delta$ F stattfinden.
 
 
-Die Berechnung von $\Delta$ F ist ein mathematisches Problem. Durch die nach links verschobene Sitzposition und die fehlenden Längenangaben der einzelnen Pfeile ist die Berechnung recht komplex. Ein alternativer Ansatz wäre eine Funktion, welche grob eine Transformation durchführt und vor Ort feinjustiert wird. In Abbildung \ref{fig:kruemmungsproblem_5} ist zu erkennen, dass bei einem Blick in die Mitte der linken Hälfte der gekrümmten Leinwand, eine leichte Korrektur nach rechts notwendig ist. Schaut man auf den Pfeil c.) aus Abbildung \ref{fig:kruemmungsproblem_5} wird klar, dass auf der rechten Seite der Halbkugel eine Korrektur nach links notwendig ist und diese stärker ausfallen muss, als auf der linken Seite. Aus den vorherigen Abbildungen ist zudem herauszulesen, dass das Problem umso stärker wird, je näher sich der Blick den Rändern der Leinwand annähert. Dabei ist es egal, ob linke Hälfte oder rechte Hälfte. 
+Die Berechnung von $\Delta$F ist ein mathematisches Problem. Durch die nach links verschobene Sitzposition und die fehlenden Längenangaben der einzelnen Pfeile ist die Berechnung recht komplex. Ein alternativer Ansatz wäre eine Funktion, welche grob eine Transformation durchführt und vor Ort feinjustiert wird. In Abbildung \ref{fig:kruemmungsproblem_5} ist zu erkennen, dass bei einem Blick in die Mitte der linken Hälfte der gekrümmten Leinwand, eine leichte Korrektur nach rechts notwendig ist. Schaut man auf den Pfeil c.) aus Abbildung \ref{fig:kruemmungsproblem_5} wird klar, dass auf der rechten Seite der Halbkugel eine Korrektur nach links notwendig ist und diese stärker ausfallen muss, als auf der linken Seite. Aus den vorherigen Abbildungen ist zudem herauszulesen, dass das Problem umso stärker wird, je näher sich der Blick den Rändern der Leinwand annähert. Dabei ist es egal, ob linke Hälfte oder rechte Hälfte. 
 Allerdings befindet sich der Punkt, welcher keine Korrektur benötigt, nach wie vor in der Mitte der Leinwand, unabhängig von der Sitzposition der Testperson.
 
 \begin{figure}
@@ -280,86 +280,61 @@ Allerdings befindet sich der Punkt, welcher keine Korrektur benötigt, nach wie 
 \end{figure}
 
 \subsection{Mathematischer Ansatz e-Funktion}
+ 
 
-Um die Transformation durchzuführen wird folgende selbst entwickelte Formel verwendet:
-
-\begin{equation} 
-	k=e^{c*(w-p)} \label{eq:1}
+\begin{equation} \label{eq:1}
+	k(p) = 
+	\begin{cases} 
+		e^{c \cdot (w - p)} & \text{für } p \leq w \\
+		e^{c \cdot (w - (2w - p))} & \text{für } p > w
+	\end{cases}
 \end{equation}
+
+In einem ersten Ansatz wurde eine Korrekturfunktion verwendet, die auf einer e-Funktion basiert. Die Funktion ist dabei abschnittsweise definiert. Je nachdem ob die Testperson auf die linke oder auf die rechte Bildschirmhälfte schaut, wird eine jeweils andere Korrekturfunktion eingesetzt, um den Korrekturwert zu berechnen. Die Abschnittweise Funktion ist in Gleichung \ref{eq:1} zu erkennen.
 
 Dabei ist: 
 \begin{center}
 	k - Korrektur-Wert\par
-	c - Korrektur-Koeffizient (zum Einstellen der Korrektur)\par
+	c - Korrektur-Koeffizient (zum Einstellen der Stärke der Korrektur)\par
 	w - Bildschirmbreite in Pixel geteilt durch zwei \par
 	p - Zu korrigierender Pixel \par
 \end{center}
 
-Des weiteren gelten folgende Formeln: 
-
-\begin{equation} 
-	p_{k,l}=p+k \label{eq:2}
-\end{equation}
-
-Dabei ist: 
-\begin{center}
-	$p_{k,l}$ - Korrigierter Pixel links\par
-	p - Zu korrigierender Pixel \par
-	k - Korrektur-Wert\par
-\end{center}
-
-Die Gleichung ref{eq:2} wird nur auf der linken Bildschirmhälfte angewandt. Der Korrektur-Wert k bestimmt dabei die Pixel, um welche man die Position des Eye-Trackers verschieben muss. Da es sich um die linke Bildschirmhälfte handelt, muss nach rechts korrigiert werden. Auf den vom Eye-Tracker bestimmten Pixel muss also der Korrektur-Wert aufsummiert werden. Wir müssen sozusagen vom linken Bildschirmrand weg eine Korrektur in Richtung Bildschirmmitte durchführen. 
-
 \begin{figure}[h!]
 	\begin{center}
-		\includegraphics[scale=0.4]{Geogebra_links}
+		\includegraphics[scale=0.4]{e_function_param}
 		\caption{Sinnvolle Werte für den Korrekturfaktor linke Bildschirmhälfte} \label{fig:imag6}
 	\end{center}
 \end{figure}
 
-In der Abbildung ist zu erkennen für welchen Korrektur-Koeffizienten bei einer Leinwand mit 4000 Pixeln Breite sinnvolle Werte zu erzielen sind. Bei 4000 Pixeln Gesamtbreite, also 2000 Pixeln auf der linken Bildschirmhälfte wäre c=0.0035 ein realistischer Wert. 
+In Abbildung \ref{fig:imag6} ist zu erkennen, wie sich der Korrekturwert bei einer Leinwand mit 4444 Pixeln Breite bezogen auf die jeweiligen Pixel verhält. Der zusätzlich hinzugekommene Korrekturfaktor für die rechte Leinwandhälfte $p_{k,r}$ sorgt dafür, dass die Korrektur auf der rechten Hälfte stärker ausgeprägt ist. 
 
+Die Feinabstimmung der Parameter wurde experimentell am Fahrsimulator durchgeführt. Die verwendeten Parameter sind im angehängten Matlab-Skript zu erkennen. 
 
-\begin{figure}[h!]
-	\begin{center}
-		\includegraphics[scale=0.4]{Geogebra_rechts}
-		\caption{Sinnvolle Werte für den Korrekturfaktor rechte Bildschirmhälfte} \label{fig:imag7}
-	\end{center}
-\end{figure}
+Mithilfe des Korrekturwertes kann der korrigierte Pixel berechnet werden, wie in Formel \ref{eq:2} zu erkennen ist.  
 
-In der Abbildung sind sinnvolle Werte für die rechte Bildschirmhälfte zu erkennen. Beim Korrekturfaktor c ändert sich nichts. Der zusätzlich hinzugekommene Korrekturfaktor $p_{k,r}$ wurde in diesem Beispiel mit 1.2 ausgewählt. 
-
-Die Feinabstimmung muss experimentell am Fahrsimulator durchgeführt werden.
-
-Der Korrekturfaktor muss für die rechte Bildschirmhälfte leicht verändert gerechnet werden. Angenommen die halbe Bildschirmbreite w beträgt 2000 Pixel. Die größte Korrektur findet am Rand statt also bei 2*w=4000 Pixel. Dort ist es dann: 2000-(4000-4000)=2000. In der Mitte soll keine Korrektur stattfinden. Dort ist es dann: 2000-(4000-2000)=0. 
-
-\begin{equation} \label{eq:3}
-	k=e^{c*(w-(2*w-p)}
-\end{equation}
-
-
-\begin{equation} \label{eq:4}
-	p_{k,r}=p-k*k_r
+\begin{equation} \label{eq:2}
+	p_{k} =  p \pm k
 \end{equation}
 
 Dabei ist: 
 \begin{center}
-	$p_{k,r}$ - Korrigierter Pixel links\par
+	$p_{k}$ - Korrigierter Pixel \par
 	p - Zu korrigierender Pixel \par
 	k - Korrektur-Wert\par
-	$k_r$ - Zusätzlicher Korrektur-Koeffizient für rechte Seite \par
 \end{center}
 
-\noindent Die Gleichung ref{eq:3} wird nur auf der rechten Bildschirmhälfte angewandt. Die bei der rechten Seite wird anders als bei der linken Seite nach links und nicht nach rechts korrigiert. Aus diesem Grund wird in der Formel mit einem negativen Vorzeichen gerechnet. Zusätzlich gibt es einen weiteren Koeffizient $k_r$. Dieser stellt sicher, dass die Korrektur auf der rechten Bildschirmseite leicht stärker ausfällt, da die durch die links ausgerichtete Sitzposition der Testperson notwendig ist. 
-
-Der mathematische Ansatz wurde im Fahrsimulator getestet und es konnten zwar Verbesserungen festgestellt werden, allerdings gab es noch einige Probleme und Optimierungsbedarf. Die Korrektur in der Mitte des Bildschirms ist wesentlich zu schwach. Auch im mittleren Bereich ist sie zu schwach. Zudem sind in Richtung Ränder große Einbußen des Sichtfeldes zu bemängeln. Eine detaillierte Auswertung der Ergebnisse wird hier übersprungen, da schon durch bloßes Hinsehen zu erkennen ist, dass diese Funktion ungeeignet ist. 1
-
-\subsection{Wieso gibt es mit diesem Lösungsansatz jetzt ein Limit}
-
-Schauen wir die linke Bildschirmhälfte an. Ab einem gewissen Punkt erreichen wir den x=0 auf der flachen Leinwand. Das entspricht in etwa dem letzten drittel auf der linken Bildschirmhälfte. Ist dieser Punkt erreicht, gibt der Raw-Ouput des Eye Trackers einen Wert von x=0 aus, weil wir auf einer flachen Leinwand den linken Rand erreicht hätten. Gehen wir jetzt auf der gekrümmten Leinwand mit dem Blick noch weiter nach links, dann ändert sich an dem Wert x=0 nichts mehr, weil der Eye-Tracker denkt wir wären bereits am Rand. Noch weiter nach links versteht er nicht. Der Korrekturwert erreicht am Rand sein Maximum. Angenommen dieses sei bei Korrektur=700 Pixel. Der linke Rand ist auf der flachen Leinwand bei x=0 Pixel. Auf der gekrümmten Leinwand ist dieser Wert allerdings weiter rechts. Ca. beim letzten drittel der linken Bildschirmhälfte. Die linke Bildschirmhälfte umfasst 2222 Pixel. 1/3*2222=740 Pixel. Wenn dieser Punkt erreicht ist, dann wird auf diese 740 Pixel der Korrekturfaktor von 700 Pixel addiert. Anschließend ist man bei 740+700 Pixel und somit bei 1140 Pixel. Schaut man weiter nach links wird das vom Eye Tracker nicht erfasst, weil wir bei der flachen Leinwand immmernoch bei x=0 sind. Auf der gekrümmten Leinwand bleiben wir bei x=740 Pixel hängen. Gleichzeitig bleibt bei x=740 Pixel der Korrekturwert von 700 Pixel identisch, weswegen eine statische Grenze von 1140 Pixel vom linken Rand entfernt entsteht. Wir der Koeffizient c erhöht, dann wird die Korrekturkurve dadurch steiler. Dadurch wird beim Nullpunkt x=0 auf der flachen Leinwand und ca. x=740 Pixel auf der gekrümmten Leinwand jetzt ein stärkerer Korrekturfaktor angewandt. Sagen wir der aggressivere Korrekturfaktor ist jetzt nicht mehr 700 Pixel, sondern 900 Pixel. Die neue statische Grenze liegt jetzt bei 740 Pixel + 900 Pixel = 1640 Pixel vom linken Rand entfernt. Das bedeutet, dass ein höherer Korrekturfaktor c die Korrektur aggressiver macht und gleichzeitig den verwendbaren Bereich des Eye-Trackers einschränkt. Auf der rechten Bildschirmhälfte tritt der Effekt noch stärker auf, da dort noch zusätzlich mit dem Korrekturkoeffizient $k_r$ gerechnet wird. 
+Je nachdem ob sich der aktuelle Pixel auf der linken oder rechten Bildschirmhälfte befindet, wird der Korrekturwert auf den zu korrigierenden Pixel addiert oder von diesem subtrahiert. 
 
 
-Hieraus kann das Fazit gezogen werden: Höherer Korrekturkoeffizient c bedeutet eine aggressivere Korrektur und möglicherweise bessere Ergebnisse. Gleichzeitig wird aber der Sichtbereich, in welchem der Eye Tracker eingesetzt werden kann, verschmälert. 
+Der mathematische Ansatz wurde im Fahrsimulator getestet und es konnten zwar Verbesserungen festgestellt werden, allerdings gab es noch einige Probleme und Optimierungsbedarf. Die Korrektur in der Mitte des Bildschirms ist wesentlich zu schwach. Auch im mittleren Bereich ist sie zu schwach. Zudem sind in Richtung Ränder große Einbußen des Sichtfeldes zu bemängeln. Eine detaillierte Auswertung der Ergebnisse wird hier übersprungen, da schon durch eine erste Beurteilung zu erkennen ist, dass es eine besser geeignete Funktion geben muss. 
+
+\subsection{Limitierung des Sichtbereichs durch Lösungsansatz}
+
+Wie bereits beschrieben erzeugt die Funktion aus dem ersten Ansatz ein verringertes Sichtfeld. Das bedeutet, dass der Eye-Tracker in einem kleineren Bereich als davor funktioniert. Angenommen die Testperson lenkt ihren Blick immer weiter nach links. Ab einem gewissen Punkt erreicht sie den Punkt x=0 auf der imaginären flachen Leinwand. Das entspricht in etwa dem letzten drittel auf der linken Bildschirmhälfte der gekrümmten Leinwand. Ist dieser Punkt erreicht, gibt der Raw-Ouput des Eye Trackers einen Wert von x=0 aus, weil auf einer flachen Leinwand der linken Rand erreicht worden wäre. Bewegt die Testperson ab diesem Punkt den Blick auf der gekrümmten Leinwand noch weiter nach links, dann ändert sich an dem Wert x=0 nichts mehr, weil der Eye-Tracker denkt der Blick der Testperson wären bereits am Rand. Parallel zu diesem Phänomen erreicht der berechnete Korrekturwert am Rand sein Maximum. Angenommen der Korrekturwert würde am Rand eine Wert von 700 Pixel annehmen. Der linke Rand ist auf der flachen Leinwand bei x=0 Pixel. Auf der gekrümmten Leinwand ist dieser Wert allerdings weiter rechts. Die linke Bildschirmhälfte umfasst 2222 Pixel. Der Punkt auf der gekrümmten Leinwand befindet sich ca. am Ende des ersten Drittels. $\frac{1}{3} \cdot 2222 = 740$\, Pixel. Wenn dieser Punkt erreicht ist, dann wird auf diese 740 Pixel der Korrekturfaktor von 700 Pixel addiert. Es ergibt sich eine berechnete Position von 740+700 Pixel und somit 1140 Pixel. Schaut die Testperson noch weiter nach links, wird das vom Eye Tracker nicht mehr erfasst, weil die detektierte Blickposition bei der flachen Leinwand weiterhin bei x=0 ist. Auf der gekrümmten Leinwand bleibt die berechnete Blickposition bei x=1140 Pixel hängen. Gleichzeitig bleibt auch der Korrekturwert von 700 Pixel identisch, weswegen eine statische Grenze von 1140 Pixel vom linken Rand entfernt entsteht. Wird der Koeffizient c erhöht, dann wird die Korrekturkurve dadurch steiler. Das wiederum sorgt für einen aggressiveren Korrekturfaktor. Angenommen der aggressivere Korrekturfaktor ist in diesem Beispiel nicht mehr 700 Pixel, sondern 900 Pixel. Die neue statische Grenze liegt jetzt bei 740 Pixel + 900 Pixel = 1640 Pixel vom linken Rand entfernt. Das bedeutet, dass ein höherer Korrekturfaktor c die Korrektur aggressiver macht und gleichzeitig den verwendbaren Bereich des Eye-Trackers einschränkt. Auf der rechten Bildschirmhälfte tritt der Effekt noch stärker auf, da dort noch zusätzlich mit dem Korrekturkoeffizient $k_r$ gerechnet wird. 
+
+
+Hieraus kann das Fazit gezogen werden: Höherer Korrekturkoeffizient c bedeutet eine aggressivere Korrektur und möglicherweise bessere Ergebnisse. Gleichzeitig wird aber der Sichtbereich, in welchem der Eye Tracker eingesetzt werden kann, verschmälert. Dieses Problem wird auch bei anderen Korrekturfunktion bestehen. 
 
 
 
@@ -376,7 +351,7 @@ Die Korrektur mit der neuen Funktion wurde im Labor experimentell getestet. Dabe
 
 \begin{figure}[h!]
 	\begin{center}
-		\includegraphics[scale=0.17]{first_correction_function_initialparam}
+		\includegraphics[scale=0.5]{first_correction_function_initialparam}
 		\caption{Visualisierung quadratische Korrekturfunktion, Quelle: \cite{lit_software_matlab}} \label{fig:imag8}
 	\end{center}
 \end{figure}
@@ -438,7 +413,7 @@ Damit sich die Ränder der Funktion gegen einen bestimmten Wert annähern, muss 
 
 \begin{figure}[h!]
 	\begin{center}
-		\includegraphics[scale=0.19]{second_correction_function_param}
+		\includegraphics[scale=0.4]{second_correction_function_param}
 		\caption{Korrekturfunktion: linke Bildschirmhälfte (links), rechte Bildschirmhälfte (rechts), Quelle: \cite{lit_software_matlab}} \label{fig:imag11}
 	\end{center}
 \end{figure}

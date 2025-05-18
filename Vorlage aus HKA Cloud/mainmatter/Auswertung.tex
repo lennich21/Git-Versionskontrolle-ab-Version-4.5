@@ -1,0 +1,21 @@
+\chapter{Auswertung}
+\label{sec:auswertung}
+
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[scale=0.25]{second_correction_function_results_andold}
+		\caption{Gegenüberstellung reale Blickposition und Eye Tracker-Werte: unkalibriert (links), kalibriert quadratische Funktion(mitte), kalibriert V-Funktion (rechts), Quelle: \cite{lit_software_matlab}} \label{fig:imag12}
+	\end{center}
+\end{figure}
+
+In Abbildung \ref{fig:imag12} sind die Ergebnisse zu erkennen, welche mit der neuen v-förmigen Korrekturfunktion erzielt werden konnten. Es ist eine deutliche Verbesserung gegenüber der quadratischen Korrekturfunktion zu erkennen. Ein eingeschränkter Sichtbereich ist weiter vorhanden. Da ab einem gewissen Punkt allerdings sowieso keine verwertbaren Werte mehr geliefert werden ist das nicht problematisch. Der Eye Tracker korrigiert in der Nähe der Bildschirmmitte jetzt aggressiver und hat damit Erfolg. Auch in Randnähe wieder stärker korrigiert und somit der Fehler reduziert. Durch die unterschiedlichen Parameter für linke und rechte Bildschirmhälfte entsteht im Übergang von linker auf rechte Bildschirmhälfte und anders herum ein kleiner Sprung. Eine weitere Optimierung würde den Rahmen dieser Projektarbeit übersteigen. 
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[scale=0.19]{second_correction_function_results_y}
+		\caption{Gegenüberstellung reale Blickposition und Eye Tracker-Werte y-Achse kalibriert, Quelle: \cite{lit_software_matlab}} \label{fig:imag13}
+	\end{center}
+\end{figure}
+
+In Abbildung \ref{fig:imag13} ist die Auswertung der y-Achse nach der Kalibrierung dargestellt. Auf den ersten Blick wirkt es so, als wären die Tracking Ergebnisse auf der y-Achse schlechter als auf der x-Achse. Das liegt allerdings zum Teil an der anderen Skalierung der y-Achse im Diagramm. Bei den horizontalen Pixelwerten in den Abbildungen weiter oben war die y-Achse von null bis 4444 skaliert. Die y-Achse für die vertikalen Pixelwerte ist allerdings nur von null bis 1080 skaliert. Eine Abweichungen von bspw. 300 Pixeln wirkt im Graphen für die vertikalen Pixel größer als im Graphen für horizontale Pixel. Ein anderer Grund ist, dass keinerlei Optimierung der vertikalen Pixel durch unseren Code vorgenommen wird. Für die Optimierung der horizontalen Pixel durch die Krümmung der Leinwand wurden große Aufwände betrieben. Durch eine Optimierung der vertikalen Pixel könnten evtl. noch weitere Verbesserungen erzielt werden.

@@ -286,7 +286,7 @@ Allerdings befindet sich der Punkt, welcher keine Korrektur benötigt, nach wie 
 	k(p) = 
 	\begin{cases} 
 		e^{c \cdot (w - p)} & \text{für } p \leq w \\
-		e^{c \cdot (w - (2w - p))} & \text{für } p > w
+		e^{c \cdot (w - (2w - p))}*k_r & \text{für } p > w
 	\end{cases}
 \end{equation}
 
@@ -297,6 +297,7 @@ Dabei ist:
 	k - Korrektur-Wert\par
 	c - Korrektur-Koeffizient (zum Einstellen der Stärke der Korrektur)\par
 	w - Bildschirmbreite in Pixel geteilt durch zwei \par
+	$k_r$ - Zusätzlicher Korrekturfaktor für rechte Bildschirmhälfte \par
 	p - Zu korrigierender Pixel \par
 \end{center}
 
@@ -307,7 +308,7 @@ Dabei ist:
 	\end{center}
 \end{figure}
 
-In Abbildung \ref{fig:imag6} ist zu erkennen, wie sich der Korrekturwert bei einer Leinwand mit 4444 Pixeln Breite bezogen auf die jeweiligen Pixel verhält. Der zusätzlich hinzugekommene Korrekturfaktor für die rechte Leinwandhälfte $p_{k,r}$ sorgt dafür, dass die Korrektur auf der rechten Hälfte stärker ausgeprägt ist. 
+In Abbildung \ref{fig:imag6} ist zu erkennen, wie sich der Korrekturwert bei einer Leinwand mit 4444 Pixeln Breite bezogen auf die jeweiligen Pixel verhält. Der zusätzliche Korrekturfaktor für die rechte Leinwandhälfte $p_{k,r}$ sorgt dafür, dass die Korrektur auf der rechten Hälfte stärker ausgeprägt ist. Das ist notwendig, weil auch der Fehler auf der rechten Bildschirmhälfte stärker auftritt. 
 
 Die Feinabstimmung der Parameter wurde experimentell am Fahrsimulator durchgeführt. Die verwendeten Parameter sind im angehängten Matlab-Skript zu erkennen. 
 
@@ -331,7 +332,7 @@ Der mathematische Ansatz wurde im Fahrsimulator getestet und es konnten zwar Ver
 
 \subsection{Limitierung des Sichtbereichs durch Lösungsansatz}
 
-Wie bereits beschrieben erzeugt die Funktion aus dem ersten Ansatz ein verringertes Sichtfeld. Das bedeutet, dass der Eye-Tracker in einem kleineren Bereich als davor funktioniert. Angenommen die Testperson lenkt ihren Blick immer weiter nach links. Ab einem gewissen Punkt erreicht sie den Punkt x=0 auf der imaginären flachen Leinwand. Das entspricht in etwa dem letzten drittel auf der linken Bildschirmhälfte der gekrümmten Leinwand. Ist dieser Punkt erreicht, gibt der Raw-Ouput des Eye Trackers einen Wert von x=0 aus, weil auf einer flachen Leinwand der linken Rand erreicht worden wäre. Bewegt die Testperson ab diesem Punkt den Blick auf der gekrümmten Leinwand noch weiter nach links, dann ändert sich an dem Wert x=0 nichts mehr, weil der Eye-Tracker denkt der Blick der Testperson wären bereits am Rand. Parallel zu diesem Phänomen erreicht der berechnete Korrekturwert am Rand sein Maximum. Angenommen der Korrekturwert würde am Rand eine Wert von 700 Pixel annehmen. Der linke Rand ist auf der flachen Leinwand bei x=0 Pixel. Auf der gekrümmten Leinwand ist dieser Wert allerdings weiter rechts. Die linke Bildschirmhälfte umfasst 2222 Pixel. Der Punkt auf der gekrümmten Leinwand befindet sich ca. am Ende des ersten Drittels. $\frac{1}{3} \cdot 2222 = 740$\, Pixel. Wenn dieser Punkt erreicht ist, dann wird auf diese 740 Pixel der Korrekturfaktor von 700 Pixel addiert. Es ergibt sich eine berechnete Position von 740+700 Pixel und somit 1140 Pixel. Schaut die Testperson noch weiter nach links, wird das vom Eye Tracker nicht mehr erfasst, weil die detektierte Blickposition bei der flachen Leinwand weiterhin bei x=0 ist. Auf der gekrümmten Leinwand bleibt die berechnete Blickposition bei x=1140 Pixel hängen. Gleichzeitig bleibt auch der Korrekturwert von 700 Pixel identisch, weswegen eine statische Grenze von 1140 Pixel vom linken Rand entfernt entsteht. Wird der Koeffizient c erhöht, dann wird die Korrekturkurve dadurch steiler. Das wiederum sorgt für einen aggressiveren Korrekturfaktor. Angenommen der aggressivere Korrekturfaktor ist in diesem Beispiel nicht mehr 700 Pixel, sondern 900 Pixel. Die neue statische Grenze liegt jetzt bei 740 Pixel + 900 Pixel = 1640 Pixel vom linken Rand entfernt. Das bedeutet, dass ein höherer Korrekturfaktor c die Korrektur aggressiver macht und gleichzeitig den verwendbaren Bereich des Eye-Trackers einschränkt. Auf der rechten Bildschirmhälfte tritt der Effekt noch stärker auf, da dort noch zusätzlich mit dem Korrekturkoeffizient $k_r$ gerechnet wird. 
+Wie bereits beschrieben erzeugt die Funktion aus dem ersten Ansatz ein verringertes Sichtfeld. Das bedeutet, dass der Eye-Tracker in einem kleineren Bereich als davor funktioniert. Angenommen die Testperson lenkt ihren Blick immer weiter nach links. Ab einem gewissen Punkt erreicht sie den Punkt x=0 auf der imaginären flachen Leinwand. Das entspricht in etwa dem letzten drittel auf der linken Bildschirmhälfte der gekrümmten Leinwand. Ist dieser Punkt erreicht, gibt der Raw-Ouput des Eye Trackers einen Wert von x=0 aus, weil auf einer flachen Leinwand der linken Rand erreicht worden wäre. Bewegt die Testperson ab diesem Punkt den Blick auf der gekrümmten Leinwand noch weiter nach links, dann ändert sich an dem Wert x=0 nichts mehr, weil der Eye-Tracker denkt der Blick der Testperson wären bereits am Rand. Parallel zu diesem Phänomen erreicht der berechnete Korrekturwert am Rand sein Maximum. Angenommen der Korrekturwert würde am Rand eine Wert von 700 Pixel annehmen. Der linke Rand ist auf der flachen Leinwand bei x=0 Pixel. Auf der gekrümmten Leinwand ist dieser Wert allerdings weiter rechts. Die linke Bildschirmhälfte umfasst 2222 Pixel. Der Punkt auf der gekrümmten Leinwand befindet sich ca. am Ende des ersten Drittels. $\frac{1}{3} \cdot 2222 = 740$ Pixel. Wenn dieser Punkt erreicht ist, dann wird auf diese 740 Pixel der Korrekturfaktor von 700 Pixel addiert. Es ergibt sich eine berechnete Position von 740+700 Pixel und somit 1140 Pixel. Schaut die Testperson noch weiter nach links, wird das vom Eye Tracker nicht mehr erfasst, weil die detektierte Blickposition bei der flachen Leinwand weiterhin bei x=0 ist. Auf der gekrümmten Leinwand bleibt die berechnete Blickposition bei x=1140 Pixel hängen. Gleichzeitig bleibt auch der Korrekturwert von 700 Pixel identisch, weswegen eine statische Grenze von 1140 Pixel vom linken Rand entfernt entsteht. Wird der Koeffizient c erhöht, dann wird die Korrekturkurve dadurch steiler. Das wiederum sorgt für einen aggressiveren Korrekturfaktor. Angenommen der aggressivere Korrekturfaktor ist in diesem Beispiel nicht mehr 700 Pixel, sondern 900 Pixel. Die neue statische Grenze liegt jetzt bei 740 Pixel + 900 Pixel = 1640 Pixel vom linken Rand entfernt. Das bedeutet, dass ein höherer Korrekturfaktor c die Korrektur aggressiver macht und gleichzeitig den verwendbaren Bereich des Eye-Trackers einschränkt. Auf der rechten Bildschirmhälfte tritt der Effekt noch stärker auf, da dort noch zusätzlich mit dem Korrekturkoeffizient $k_r$ gerechnet wird. 
 
 
 Hieraus kann das Fazit gezogen werden: Höherer Korrekturkoeffizient c bedeutet eine aggressivere Korrektur und möglicherweise bessere Ergebnisse. Gleichzeitig wird aber der Sichtbereich, in welchem der Eye Tracker eingesetzt werden kann, verschmälert. Dieses Problem wird auch bei anderen Korrekturfunktion bestehen. 
@@ -340,12 +341,16 @@ Hieraus kann das Fazit gezogen werden: Höherer Korrekturkoeffizient c bedeutet 
 
 \subsection{Quadratische-Funktion}
 
-Anstatt e-Funktion wird eine quadratische Funktion eingesetzt. Das $k_r$ ist wie bei der e-Funktion nur auf der rechten Bildschirmhälfte anzuwenden. 
+Anstatt einer e-Funktion wird eine quadratische Funktion eingesetzt. Das $k_r$ ist wie bei der e-Funktion nur auf der rechten Bildschirmhälfte anzuwenden. 
+
 
 \begin{equation} \label{eq:4}
-	k={c*(w-p)}^2*k_r
+	k(p) = 
+	\begin{cases} 
+		(c*(w-p))^2 & \text{für } p \leq w \\
+		(c*(w-(2*w-x)))^2*k_r & \text{für } p > w
+	\end{cases}
 \end{equation}
-
 
 Die Korrektur mit der neuen Funktion wurde im Labor experimentell getestet. Dabei wurde auch Fine-Tuning durchgeführt, um die Funktion so gut es geht an die realen Gegebenheiten anzupassen. Die besten Ergebnisse konnten durch c=0.012 und $k_r=1.5$ erreicht werden. 
 
@@ -372,7 +377,7 @@ Auf der y-Achse ist die vom Eye Tracker geschätzte Blickposition aufgetragen. D
 
 Es ist zu erkennen, dass der Sichtbereich auch bei der Verwendung einer quadratischen Korrekturfunktion eingeschränkt wird. Diese Einschränkung konnte allerdings reduziert werden. Bei der e-Funktion war der maximale Korrekturwert auf der linken Bildschirmhälfte k=1300. Bei der abgestimmten, quadratischen Korrekturfunktion liegt das Maximum bei k=700. Es stehen somit auf der linken Bildschirmhälfte 600 Pixel mehr für das Tracking zur Verfügung. Die Auswertung stimmt mit den theoretischen Überlegungen soweit überein, dass bei ca. 2222 Pixel ein Fehler von null vorhanden ist. Das liegt daran, weil die gekrümmte Leinwand und eine äquivalente, imaginäre, gerade Leinwand in der Bildschirmmitte bei 2222 Pixel identisch sind. 
 Um die Verbesserungen deutlich zu erkennen, müssen bestimmte Bereiche genauer betrachtet werden: 
-
+-
 
 \begin{figure}[h!]
 	\begin{center}
@@ -402,11 +407,14 @@ Zusätzlich wird der Faktor c eingeführt, welcher ähnlich wie p die Steigung r
 	k=(c*|(x-w)|+d)^p
 \end{equation}
 
-Damit sich die Ränder der Funktion gegen einen bestimmten Wert annähern, muss eine Dämpfung in die Funktion eingebaut werden. Diese wird durch eine e-Funktion realisiert. Dadurch ist eine schnelle Annäherung an den Grenzwert sichergestellt. Die vollständige Korrekturfaktor-Funktion ist wie folgt definiert: 
+Damit sich die Ränder der Funktion gegen einen bestimmten Wert annähern, muss eine Dämpfung in die Funktion eingebaut werden. Diese wird durch eine e-Funktion realisiert. Dadurch ist eine schnelle Annäherung an den Grenzwert sichergestellt. Die vollständige Korrekturfaktor-Funktion ist in Gleichung \ref{eq:7} aufgeführt. Es ist zu beachten, dass es beim Ansatz mit der v-Funktion unterschiedliche Parameter für die linke und rechte Seite der Bildschirmhälfte gibt. Diese sind mit einem herab gestelltem l bzw. r gekennzeichnet. Die zugewiesenen numerischen Werte sind im angehängten Matlab Skript aufgeführt.
 
-
-\begin{equation} \label{eq:6}
-	k=(c*|(w-x)|+d)^p*(1-e^{-g*(|w-x|)})
+\begin{equation} \label{eq:7}
+	k(p) = 
+	\begin{cases} 
+		(c_l*|(w-x)|+d_l)^{p_l}*(1-e^{-g_l*(|w-x|)}) & \text{für } p \leq w \\
+		(c_r*|(w-(2*w-x))|+d_r)^{p_r}*(1-e^{-g_r*(|w-(2*w-x)|)}) & \text{für } p > w
+	\end{cases}
 \end{equation}
 
 
@@ -421,27 +429,4 @@ Damit sich die Ränder der Funktion gegen einen bestimmten Wert annähern, muss 
 
 Die graphische Darstellung der Korrekturfunktion ist in Abbildung \ref{fig:imag11} zu erkennen. Die optimalen Parameter wurden im Fahrsimulator experimentell bestimmt und werden für die Darstellung des Graphen verwendet. Wie in der Abbildung zu erkennen ist, unterschieden sich die Parameter zwischen linker und rechter Leinwandhälfte. Auf der rechten Hälfte muss stärker korrigiert werden. Hier ist die Veränderung der Steigung ab einem gewissen Punkt gut zu erkennen. 
 
-\begin{figure}[h!]
-	\begin{center}
-		\includegraphics[scale=0.19]{second_correction_function_results}
-		\caption{Gegenüberstellung reale Blickposition und Eye Tracker-Werte: unkalibriert (links), kalibriert (rechts), Quelle: \cite{lit_software_matlab}} \label{fig:imag12}
-	\end{center}
-\end{figure}
-
-In Abbildung \ref{fig:imag12} sind die Ergebnisse zu erkennen, welche mit der neuen v-förmigen Korrekturfunktion erzielt werden konnten. Es ist eine deutliche Verbesserung gegenüber der quadratischen Korrekturfunktion zu erkennen. Ein eingeschränkter Sichtbereich ist weiter vorhanden. Da ab einem gewissen Punkt allerdings sowieso keine verwertbaren Werte mehr geliefert werden ist das nicht problematisch. Der Eye Tracker korrigiert in der Nähe der Bildschirmmitte jetzt aggressiver und hat damit Erfolg. Auch in Randnähe wieder stärker korrigiert und somit der Fehler reduziert. Durch die unterschiedlichen Parameter für linke und rechte Bildschirmhälfte entsteht im Übergang von linker auf rechte Bildschirmhälfte und anders herum ein kleiner Sprung. Eine weitere Optimierung würde den Rahmen dieser Projektarbeit übersteigen.
-
-
-
-\begin{figure}[h!]
-	\begin{center}
-		\includegraphics[scale=0.19]{second_correction_function_results_y}
-		\caption{Gegenüberstellung reale Blickposition und Eye Tracker-Werte y-Achse kalibriert, Quelle: \cite{lit_software_matlab}} \label{fig:imag13}
-	\end{center}
-\end{figure}
-
-In Abbildung \ref{fig:imag13} ist die Auswertung der y-Achse nach der Kalibrierung dargestellt. Auf den ersten Blick wirkt es so, als wären die Tracking Ergebnisse auf der y-Achse schlechter als auf der x-Achse. Das liegt allerdings zum Teil an der anderen Skalierung der y-Achse im Diagramm. Bei den horizontalen Pixelwerten in den Abbildungen weiter oben war die y-Achse von null bis 4444 skaliert. Die y-Achse für die vertikalen Pixelwerte ist allerdings nur von null bis 1080 skaliert. Eine Abweichungen von bspw. 300 Pixeln wirkt im Graphen für die vertikalen Pixel größer als im Graphen für horizontale Pixel. Ein anderer Grund ist, dass keinerlei Optimierung der vertikalen Pixel durch unseren Code vorgenommen wird. Für die Optimierung der horizontalen Pixel durch die Krümmung der Leinwand wurden große Aufwände betrieben. Durch eine Optimierung der vertikalen Pixel könnten evtl. noch weitere Verbesserungen erzielt werden.
-
-
-
-
-Eine abschließende Auswertung der Ergebnisse folgt in einem späteren Abschnitt.  
+Die Auswertung der Ergebnisse erfolgt im nächsten Abschnitt. 

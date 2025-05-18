@@ -1,13 +1,13 @@
 % Dieses Skript zeigt die Auswertung der Tracking Daten um den Vergleich
 % mit keiner, schlechter und guter Korrekturfunktion darzustellen 
-maus_x= [];
-maus_y= [];
+maus_x_alt= [];
+maus_y_alt= [];
 
-unkalibriert_x= [];
-unkalibriert_y= [];
+unkalibriert_x_alt= [];
+unkalibriert_y_alt= [];
 
-kalibriert_x= [];
-kalibriert_y= [];
+kalibriert_x_alt= [];
+kalibriert_y_alt= [];
 
 filename = "x_y_Track_old_clean.txt";
 str = readlines(filename);
@@ -30,25 +30,25 @@ for i=1:length(str)
     value_unkalibriert_y = extractAfter(values_unkalibriert, ", ");
     value_kalibriert_x = extractBetween(values_kalibriert,start,fin);
     value_kalibriert_y = extractAfter(values_kalibriert, ", ");
-    maus_x(i)=str2double(value_maus_x);
-    maus_y(i)=str2double(value_maus_y);
+    maus_x_alt(i)=str2double(value_maus_x);
+    maus_y_alt(i)=str2double(value_maus_y);
 
-    unkalibriert_x(i)=str2double(value_unkalibriert_x);
-    unkalibriert_y(i)=str2double(value_unkalibriert_y);
+    unkalibriert_x_alt(i)=str2double(value_unkalibriert_x);
+    unkalibriert_y_alt(i)=str2double(value_unkalibriert_y);
 
-    kalibriert_x(i)=str2double(value_kalibriert_x);
-    kalibriert_y(i)=str2double(value_kalibriert_y);
+    kalibriert_x_alt(i)=str2double(value_kalibriert_x);
+    kalibriert_y_alt(i)=str2double(value_kalibriert_y);
     i=i+1;
 end
 
-maus_x
-maus_y
+maus_x = [];
+maus_y = [];
 
-unkalibriert_x
-unkalibriert_y
+unkalibriert_x = [];
+unkalibriert_y = [];
 
-kalibriert_x
-kalibriert_y
+kalibriert_x = [];
+kalibriert_y = [];
 
 % Plot für x-Achse Maus & unkalibriert (alte Funktion) 
 figure; 
@@ -57,7 +57,7 @@ x_ideal = linspace(0,4444);
 y_ideal = x_ideal; 
 plot(x_ideal, y_ideal);
 hold on
-scatter(maus_x, unkalibriert_x, 'b' ,"filled");
+scatter(maus_x_alt, unkalibriert_x_alt, 'b' ,"filled");
 xlabel('Reale Blickposition');
 ylabel('Unkalibrierte EyeTracker-Werte');
 title('Gegenüberstellung reale Blickposition und unkalibrierte EyeTracker-Werte');
@@ -71,7 +71,7 @@ x_ideal = linspace(0,4444);
 y_ideal = x_ideal; 
 plot(x_ideal, y_ideal);
 hold on
-scatter(maus_x, kalibriert_x, 'b' ,"filled");
+scatter(maus_x_alt, kalibriert_x_alt, 'b' ,"filled");
 xlabel('Reale Blickposition');
 ylabel('Kalibrierte EyeTracker-Werte');
 title('Gegenüberstellung reale Blickposition und kalibrierte EyeTracker-Werte');
@@ -85,7 +85,7 @@ x_ideal = linspace(0,1080);
 y_ideal = x_ideal; 
 plot(x_ideal, y_ideal);
 hold on
-scatter(maus_y, unkalibriert_y, "b", "filled");
+scatter(maus_y_alt, unkalibriert_y_alt, "b", "filled");
 xlabel('Reale Blickposition');
 ylabel('Kalibrierte, geschätzte Blickposition Eye-Tracker');
 title('Reale Blickposition vs. kalibrierte geschätzte Blickposition y-Achse (alte Funktion)');
@@ -134,7 +134,7 @@ end
 
 % Plot für x-Achse Maus & unkalibriert (neue Funktion) 
 figure;
-subplot(1,2,1)
+subplot(1,3,1)
 x_ideal = linspace(0,4444);
 y_ideal = x_ideal; 
 plot(x_ideal, y_ideal);
@@ -142,13 +142,25 @@ hold on
 scatter(maus_x, unkalibriert_x, 'r', 'filled');
 xlabel('Reale Blickposition');
 ylabel('Unkalibrierte EyeTracker-Werte');
-title('Reale Blickposition vs. unkalibrierte geschätzte Blickposition x-Achse(neue Funktion)');
+title('Unkalibriert');
+grid on;
+
+% Plot für x-Achse Maus & kalibriert (alte Funktion) 
+subplot(1,3,2)
+x_ideal = linspace(0,4444);
+y_ideal = x_ideal; 
+plot(x_ideal, y_ideal);
+hold on
+scatter(maus_x_alt, kalibriert_x_alt, 'b', 'filled');
+xlabel('Reale Blickposition');
+ylabel('Kalibrierte EyeTracker-Werte');
+title('Kalibriert mit quadratischer Funktion');
 grid on;
 
 
-% Plot für x-Achse Maus & kalibriert (neue Funktion) 
 
-subplot(1,2,2)
+% Plot für x-Achse Maus & kalibriert (neue Funktion) 
+subplot(1,3,3)
 x_ideal = linspace(0,4444);
 y_ideal = x_ideal; 
 plot(x_ideal, y_ideal);
@@ -156,7 +168,7 @@ hold on
 scatter(maus_x, kalibriert_x, 'r','filled');
 xlabel('Reale Blickposition');
 ylabel('Kalibrierte EyeTracker-Werte');
-title('Reale Blickposition vs. kalibrierte geschätzte Blickposition x-Achse (neue Funktion)');
+title('Kalibriert mit V-Funktion');
 grid on;
 
 

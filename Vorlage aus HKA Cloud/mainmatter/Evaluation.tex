@@ -32,7 +32,12 @@ Die Leinwand des Fahrsimulators ist nicht flach sondern besitzt eine halbkreisf�
 			% Zeichnet Pfeil 3 (zeigt falsche Anzeige auf Bildschirm)
 			\draw[thick][dashed][-stealth][blue] (5,6.5) -- (2.45,6.45) node[midway, below, black] {$\mathbf{c.)}$};
 		\end{tikzpicture}
-		\caption{Visualisierung der verzerrenden Wirkung einer gekrümmten Leinwand auf die Ergebnisse des Eye Trackers} \label{fig:kruemmungsproblem_1}
+		\caption{Visualisierung der verzerrenden Wirkung einer gekrümmten Leinwand auf die Ergebnisse des Eye Trackers\\\\
+		grauer Punkt - Sitzposition der Testperson\\
+		a.) - Direkte Blickrichtung der Person mit einem Winkel von 0° auf die Mitte der Leinwand\\
+		b.) - Blick nach links auf den äußeren linken Rand der imaginären flachen Leinwand\\
+		c.) - Blick nach links auf den äußeren linken Rand der realen gekrümmten Leinwand}
+		 \label{fig:kruemmungsproblem_1}
 	\end{center}
 	% Das Label wird gebraucht, um im Text auf diese Abbildung zu referenzieren
 \end{figure}
@@ -101,7 +106,14 @@ Es besteht kein gleichbleibender Zusammenhang zwischen der Blickposition auf der
 			\draw[thick][-stealth][blue] (2.45, 6.5) -- (1, 9.05) node[midway, right, black] {$\mathbf{b.)}$} coordinate;
 			
 		\end{tikzpicture}
-		\caption{Visualisierung der nichtlinearen Transformation} \label{fig:kruemmungsproblem_2}
+		\caption{Visualisierung der nichtlinearen Transformation\\\\
+		grauer Punkt - Sitzposition der Testperson\\
+		a.) - Blickrichtung von 90° nach links auf den äußeren linken Rand der realen gekrümmten Leinwand\\
+		b.) - Transformation von Pfeil a.) auf die imaginäre flache Leinwand\\
+		c.) - Blick nach links auf die realen gekrümmten Leinwand\\
+		d.) - Transformation von Pfeil b.) auf die imaginäre flache Leinwand\\
+		$\alpha$ - Winkel zwischen Blickrichtung von 0° und Pfeil a.)\\
+		$\beta$ - Winkel zwischen Blickrichtung von 0° und Pfeil b.)} \label{fig:kruemmungsproblem_2}
 	\end{center}
 \end{figure}
 
@@ -161,7 +173,14 @@ Eine weitere Abweichung von den Annahmen weiter oben ist die um links verschoben
 			\draw[thick][-stealth][blue] (7.55, 6.5) -- (9, 9.05) node[midway, left, black] {$\mathbf{f.)}$} coordinate (blick3_transform);
 			
 		\end{tikzpicture}
-		\caption{Visualisierung der Verschiebung der Sitzposition der Testperson} \label{fig:kruemmungsproblem_3}
+		\caption{Visualisierung der Verschiebung der Sitzposition der Testperson\\\\
+		grauer Punkt - Sitzposition der Testperson\\
+		a.) - Blickrichtung auf den äußeren linken Rand der realen gekrümmten Leinwand\\
+		b.) - Transformation von Pfeil a.) auf die imaginäre flache Leinwand\\
+		c.) - Blick nach links auf die realen gekrümmten Leinwand\\
+		d.) - Transformation von Pfeil b.) auf die imaginäre flache Leinwand\\
+		e.) - Blickrichtung auf den äußeren rechten Rand der realen gekrümmten Leinwand\\
+		f.) - Transformation von Pfeil e.) auf die imaginäre flache Leinwand} \label{fig:kruemmungsproblem_3}
 	\end{center}
 \end{figure}
 
@@ -223,7 +242,15 @@ Bei der Transformation ist nur die Horizontale von Relevanz. Vertikale Pixel mü
 			\shorthandon{"}%
 			
 		\end{tikzpicture}
-		\caption{Graphische Darstellung des Lösungsansatzes für die Transformation} \label{fig:kruemmungsproblem_4}
+		\caption{Graphische Darstellung des Lösungsansatzes für die Transformation\\\\
+		grauer Punkt - Sitzposition der Testperson\\
+		a.) - Blickrichtung auf die Mitte der realen gekrümmten Leinwand\\
+		b.) - Vom Eye-Tracker erkannte Blickrichtung auf der imaginären geraden Leinwand, wenn Testperson in Blickrichtung d.) auf gekrümmter Leinwand schaut\\
+		c.) - Korrekte Transformation von gekrümmter Leinwand auf gerade Leinwand\\
+		d.) - Blick der Testperson auf einen Punkt auf der gekrümmten Leinwand\\
+		$\alpha$ - Winkel zwischen Blickrichtung zur Mitte der realen gekrümmten Leinwand und aktueller Blickrichtung\\
+		$\Delta$F - Fehler zwischen erkannter Blickrichtung b.) und tatsächlicher Blickrichtung c.) bezogen auf imaginäre gerade Leinwand
+		} \label{fig:kruemmungsproblem_4}
 	\end{center}
 	% Lösungsansatz zur Transformation
 \end{figure}
@@ -274,7 +301,13 @@ Allerdings befindet sich der Punkt, welcher keine Korrektur benötigt, nach wie 
 			
 			
 		\end{tikzpicture}
-		\caption{Bestimmung der notwendigen Korrektur auf beiden Halbseiten des Halbkreises} \label{fig:kruemmungsproblem_5}
+		\caption{Bestimmung der notwendigen Korrektur auf beiden Halbseiten des Halbkreises\\\\
+		grauer Punkt - Sitzposition der Testperson\\
+		a.) - Blickrichtung auf einen Punkt auf der linken Hälfte der gekrümmten Leinwand\\
+		b.) - Korrekte Transformation von Blickrichtung a.) auf die imaginäre gerade Leinwand\\
+		c.) - Blickrichtung auf einen Punkt auf der rechten Hälfte der gekrümmten Leinwand\\
+		d.) - Korrekte Transformation von Blickrichtung c.) auf die imaginäre gerade Leinwand}
+		\label{fig:kruemmungsproblem_5}
 	\end{center}
 	% Lösungsansatz zur Transformation
 \end{figure}
@@ -303,7 +336,7 @@ Dabei ist:
 
 \begin{figure}[h!]
 	\begin{center}
-		\includegraphics[scale=0.4]{e_function_param}
+		\includegraphics[scale=0.5]{e_function_param}
 		\caption{Sinnvolle Werte für den Korrekturfaktor linke Bildschirmhälfte} \label{fig:imag6}
 	\end{center}
 \end{figure}
@@ -421,8 +454,8 @@ Damit sich die Ränder der Funktion gegen einen bestimmten Wert annähern, muss 
 
 \begin{figure}[h!]
 	\begin{center}
-		\includegraphics[scale=0.4]{second_correction_function_param}
-		\caption{Korrekturfunktion: linke Bildschirmhälfte (links), rechte Bildschirmhälfte (rechts), Quelle: \cite{lit_software_matlab}} \label{fig:imag11}
+		\includegraphics[scale=0.5]{second_correction_function_param}
+		\caption{Visualisierung V-Korrekturfunktion, Quelle: \cite{lit_software_matlab}} \label{fig:imag11}
 	\end{center}
 \end{figure}
 

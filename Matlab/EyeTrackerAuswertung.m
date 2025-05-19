@@ -145,6 +145,14 @@ ylabel('Unkalibrierte EyeTracker-Werte');
 title('Unkalibriert');
 grid on;
 
+% Standardabweichung x & y
+standardabweichung_x = std(maus_x);
+standardabweichung_y = std(unkalibriert_x);
+% Kovarianz x & y
+kovarianz_xy = cov(maus_x,unkalibriert_x);
+% Korrelationskoeffizient 
+r_unkalibriert = kovarianz_xy(1,2)/(standardabweichung_x*standardabweichung_y)
+
 % Plot für x-Achse Maus & kalibriert (alte Funktion) 
 subplot(1,3,2)
 x_ideal = linspace(0,4444);
@@ -156,6 +164,18 @@ xlabel('Reale Blickposition');
 ylabel('Kalibrierte EyeTracker-Werte');
 title('Kalibriert mit quadratischer Funktion');
 grid on;
+
+% Berechnung des Korrelationskoeffizienten 
+
+% Standardabweichung x & y
+standardabweichung_x = std(maus_x_alt);
+standardabweichung_y = std(kalibriert_x_alt);
+% Kovarianz x & y
+kovarianz_xy = cov(maus_x_alt,kalibriert_x_alt);
+% Korrelationskoeffizient 
+r_alt = kovarianz_xy(1,2)/(standardabweichung_x*standardabweichung_y)
+
+
 
 
 
@@ -170,6 +190,17 @@ xlabel('Reale Blickposition');
 ylabel('Kalibrierte EyeTracker-Werte');
 title('Kalibriert mit V-Funktion');
 grid on;
+
+% Berechnung des Korrelationskoeffizienten 
+
+% Standardabweichung x & y
+standardabweichung_x = std(maus_x);
+standardabweichung_y = std(kalibriert_x);
+% Kovarianz x & y
+kovarianz_xy = cov(maus_x,kalibriert_x);
+% Korrelationskoeffizient 
+r = kovarianz_xy(1,2)/(standardabweichung_x*standardabweichung_y)
+
 
 
 

@@ -145,6 +145,14 @@ ylabel('Unkalibrierte EyeTracker-Werte');
 title('Unkalibriert');
 grid on;
 
+summe_dif = 0;
+for i=1:numel(maus_x)
+    dif=abs(maus_x(i)-unkalibriert_x(i));
+    summe_dif = summe_dif + dif; 
+end
+
+dif_mean_unkalibriert = summe_dif/numel(maus_x);
+
 % Standardabweichung x & y
 standardabweichung_x = std(maus_x);
 standardabweichung_y = std(unkalibriert_x);
@@ -164,6 +172,18 @@ xlabel('Reale Blickposition');
 ylabel('Kalibrierte EyeTracker-Werte');
 title('Kalibriert mit quadratischer Funktion');
 grid on;
+
+
+
+summe_dif = 0;
+for i=1:numel(maus_x_alt)
+    dif=abs(maus_x_alt(i)-kalibriert_x_alt(i));
+    summe_dif = summe_dif + dif; 
+end
+
+dif_mean_alt = summe_dif/numel(maus_x_alt);
+
+
 
 % Berechnung des Korrelationskoeffizienten 
 
@@ -190,6 +210,16 @@ xlabel('Reale Blickposition');
 ylabel('Kalibrierte EyeTracker-Werte');
 title('Kalibriert mit V-Funktion');
 grid on;
+
+
+summe_dif = 0;
+for i=1:numel(maus_x)
+    dif=abs(maus_x(i)-kalibriert_x(i));
+    summe_dif = summe_dif + dif; 
+end
+
+dif_mean_neu = summe_dif/numel(maus_x);
+
 
 % Berechnung des Korrelationskoeffizienten 
 

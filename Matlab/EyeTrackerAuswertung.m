@@ -99,13 +99,11 @@ for i=1:length(str)
     i=i+1;
 end
 
-dif_mean_alt_y_unkalibriert = summe_dif/numel(maus_y_alt);
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Hier findet die Darstellung der Ergebnisse für die y-Achse statt
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Plot für y-Achse Maus unkalibriert 
+% Plot für y-Achse 
 
 figure;
 x_ideal = linspace(0,1080);
@@ -113,9 +111,10 @@ y_ideal = x_ideal;
 plot(x_ideal, y_ideal);
 hold on
 scatter(maus_y, kalibriert_y, "r", "filled");
-xlabel('Reale Blickposition');
-ylabel('Kalibrierte EyeTracker-Werte');
-title('Kalibriert mit V-Funktion');
+xlabel('Reale Blickposition in Pixel','FontSize',18);
+ylabel('EyeTracker-Werte in Pixel','FontSize',18);
+title('y-Achse Auswertung','FontSize',18);
+set(gca, 'FontSize', 18);
 grid on;
 
 % Berechnung des durchschnittlichen Fehlers 
@@ -142,9 +141,10 @@ y_ideal = x_ideal;
 plot(x_ideal, y_ideal);
 hold on
 scatter(maus_x_alt, unkalibriert_x_alt, 'b' ,"filled");
-xlabel('Reale Blickposition');
-ylabel('Unkalibrierte EyeTracker-Werte');
-title('Gegenüberstellung reale Blickposition und unkalibrierte EyeTracker-Werte');
+xlabel('Reale Blickposition in Pixel','FontSize',18);
+ylabel('Unkalibrierte EyeTracker-Werte in Pixel','FontSize',18);
+title('x-Achse Auswertung unkalibriert','FontSize',18);
+set(gca, 'FontSize', 18);
 grid on;
 
 
@@ -156,9 +156,10 @@ y_ideal = x_ideal;
 plot(x_ideal, y_ideal);
 hold on
 scatter(maus_x_alt, kalibriert_x_alt, 'b' ,"filled");
-xlabel('Reale Blickposition');
-ylabel('Kalibrierte EyeTracker-Werte');
-title('Gegenüberstellung reale Blickposition und kalibrierte EyeTracker-Werte');
+xlabel('Reale Blickposition in Pixel','FontSize',18);
+ylabel('Kalibrierte EyeTracker-Werte in Pixel','FontSize',18);
+title('x-Achse Auswertung kalibriert','FontSize',18);
+set(gca, 'FontSize', 18);
 grid on;
 
 
@@ -171,9 +172,10 @@ y_ideal = x_ideal;
 plot(x_ideal, y_ideal);
 hold on
 scatter(maus_x, unkalibriert_x, 'r', 'filled');
-xlabel('Reale Blickposition');
-ylabel('Unkalibrierte EyeTracker-Werte');
-title('Unkalibriert');
+xlabel('Reale Blickposition in Pixel','FontSize',18);
+ylabel('Unkalibrierte EyeTracker-Werte in Pixel','FontSize',18);
+title('x-Achse Auswertung unkalibriert','FontSize',18);
+set(gca, 'FontSize', 18);
 grid on;
 
 summe_dif = 0;
@@ -203,9 +205,10 @@ y_ideal = x_ideal;
 plot(x_ideal, y_ideal);
 hold on
 scatter(maus_x_alt, kalibriert_x_alt, 'b', 'filled');
-xlabel('Reale Blickposition');
-ylabel('Kalibrierte EyeTracker-Werte');
-title('Kalibriert mit quadratischer Funktion');
+xlabel('Reale Blickposition in Pixel','FontSize',18);
+ylabel('Kalibrierte EyeTracker-Werte in Pixel','FontSize',18);
+title('x-Achse Auswertung quadratische Funktion','FontSize',18);
+set(gca, 'FontSize', 18);
 grid on;
 
 summe_dif = 0;
@@ -231,9 +234,10 @@ y_ideal = x_ideal;
 plot(x_ideal, y_ideal);
 hold on
 scatter(maus_x, kalibriert_x, 'r','filled');
-xlabel('Reale Blickposition');
-ylabel('Kalibrierte EyeTracker-Werte');
-title('Kalibriert mit V-Funktion');
+xlabel('Reale Blickposition in Pixel','FontSize',18);
+ylabel('Kalibrierte EyeTracker-Werte in Pixel','FontSize',18);
+title('x-Achse Auswertung V-Funktion','FontSize',18);
+set(gca, 'FontSize', 18);
 grid on;
 
 summe_dif = 0;

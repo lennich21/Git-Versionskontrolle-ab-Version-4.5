@@ -1,7 +1,18 @@
+%{
+Dieses Skript zeigt die verschiedenen Korreturfunktionen. 
+%}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Hier wird die erste Korrekturfunktion (aus e-Funktion basierend) graphisch
+%dargestellt.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 % Parameterdefinition
 c = 0.0035; % Korrektur-Koeffizient
 k_r = 1.2; % Zusätzlicher Skalierungsfaktor für rechte Bildschirmhälfte
-middle_width = 2222; % Mitte des Bildschirms in Pixel
+middle_width = 2222; % Mitte des Bildschirms in Pixel (Basiert auf der 
+% Leinwandgröße des mittelgroßen Fahrsimulators an der HKA)
 
 % Wertebereich für die Tracking-Daten
 x = linspace(0, 4444, 4444); % Gesamter Bildschirmbereich
@@ -21,15 +32,18 @@ correction_value(x > middle_width) = ...
 figure;
 plot(x, correction_value, 'r-', 'LineWidth', 2);
 hold on;
-v_line = xline(middle_width, '--k', 'LineWidth', 1.5); % Vertikale Linie zur Markierung der Leinwandmitte
-xlabel('Horizontale Pixel Leinwand');
-ylabel('Korrekturwert');
-title('Korrekturwertfunktion basierend auf e-Funktion');
+v_line = xline(middle_width, '--k', 'LineWidth', 1.5);
+xlabel('Horizontale Pixel Leinwand', 'FontSize',14);
+ylabel('Korrekturwert in Pixel', 'FontSize',14);
+title('Korrekturwertfunktion basierend auf e-Funktion', 'FontSize',14);
 grid on;
 legend('Korrekturwert','Leinwandmmitte');
 
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Hier wird die zweite Korrekturfunktion (aus quadratischer-Funktion 
+%basierend) graphisch dargestellt.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Parameterdefinition
 c = 0.012;              % Korrektur-Koeffizient
@@ -54,15 +68,19 @@ correction_value(x > middle_width) = ...
 figure;
 plot(x, correction_value, 'r-', 'LineWidth', 2);
 hold on;
-v_line = xline(middle_width, '--k', 'LineWidth', 1.5); % Vertikale Linie zur Markierung der Leinwandmitte
-xlabel('Horizontale Pixel Leinwand');
-ylabel('Korrekturwert');
-title('Korrekturwertfunktion basierend auf quadratischer Funktion');
+% Vertikale Linie zur Markierung der Leinwandmitte
+v_line = xline(middle_width, '--k', 'LineWidth', 1.5); 
+xlabel('Horizontale Pixel Leinwand', 'FontSize',14);
+ylabel('Korrekturwert in Pixel', 'FontSize',14);
+title('Korrekturwertfunktion basierend auf quadratischer Funktion', 'FontSize',14);
 grid on;
 legend('Korrekturwert','Leinwandmmitte');
 
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Hier wird die dritte Korrekturfunktion (aus V-Funktion 
+%basierend) graphisch dargestellt.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Parameterdefinition
 c = 0.03; % Korrektur-Koeffizient für linke Seite
@@ -102,9 +120,9 @@ correction_value(x > middle_width) = ...
 figure;
 plot(x, correction_value, 'r-', 'LineWidth', 2);
 hold on;
-v_line = xline(middle_width, '--k', 'LineWidth', 1.5); % Vertikale Linie zur Markierung der Leinwandmitte
-xlabel('Horizontale Pixel Leinwand');
-ylabel('Korrekturwert');
-title('Korrekturwertfunktion basierend auf V-Funktion');
+v_line = xline(middle_width, '--k', 'LineWidth', 1.5); 
+xlabel('Horizontale Pixel Leinwand', 'FontSize',14);
+ylabel('Korrekturwert in Pixel', 'FontSize',14);
+title('Korrekturwertfunktion basierend auf V-Funktion', 'FontSize',14);
 grid on;
 legend('Korrekturwert','Leinwandmmitte');

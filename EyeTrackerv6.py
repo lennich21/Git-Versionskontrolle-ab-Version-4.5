@@ -1,4 +1,7 @@
+##########################################################################
+# Import of the required packages 
 import tkinter as tk
+# import of the beam eyetracker client. Also downloadable directly from the beam eye tracker website 
 from eyeware.client import TrackerClient, TrackingConfidence
 import time
 import numpy as np
@@ -8,7 +11,11 @@ import cv2
 import math
 import pyautogui
 import csv
+##########################################################################
 
+# Class Description
+# Acts as an API to the Beam Eye Tracker Software and gets relevant information 
+# Returns data in form of a list 
 class EyeTracker:
     def __init__(self):
         self.tracker = TrackerClient()  # Import the API for the Beam Eye-Tracker
@@ -36,13 +43,17 @@ class EyeTracker:
             return ["Tracker connected", screen_gaze.is_lost, screen_gaze.confidence, confi_col, screen_gaze.x, screen_gaze.y]
         else:
             return ["Tracker not connected", "Null", "Null", "Null", "Null", "Null"]
-        
+
+# Class Description
+# Class is not used in final version of code. Still exists for future use if required
+# Creates GUI for calibration and calculates linear and constant offset 
+# Modifies raw eyetracker data in order to apply calibration
 class Calibration:
     def __init__(self):
         pass
 
     def calibration(self):
-        tracker = TrackerClient() # Import the API for the Beam Eye-Tracker
+        tracker = TrackerClient() # instanciation of the tracker object, that gets raw Data from the beam eye tracking software 
         
         user32 = ctypes.windll.user32   # Reads out current resolution
         screen_width = user32.GetSystemMetrics(0)
@@ -54,7 +65,7 @@ class Calibration:
         calibration.title("Calibration")
         calibration.configure(bg="white")
 
-        # Calibration Window Size
+        # Automatic calculation of calibration window Size
         calibration_window_x = 3000
         calibration_window_y = 700
         calibration_window_x_position = int(middle_width) - int(calibration_window_x/2)
@@ -125,8 +136,6 @@ class Calibration:
         difference_y_4 = self.y[3] - self.positions[3][1]
         difference_y_5 = self.y[4] - self.positions[4][1]
 
-        #print(difference_x_1, difference_x_2, difference_x_3, difference_x_4, difference_x_5)
-
         self.average_difference_x = (difference_x_1 + difference_x_2 + difference_x_3 + difference_x_4 + difference_x_5) / 5
         self.average_difference_y = (difference_y_1 + difference_y_2 + difference_y_3 + difference_y_4 + difference_y_5) / 5
     
@@ -142,6 +151,10 @@ class Calibration:
         return tracking_data
     
 
+# Class description 
+# Executes the correction described in the report in order to correct curved screen
+# takes raw eye tracker data and applies correction to it based on input pixels 
+# returns corrected pixels as output 
 class CorrectCurvature:
     def __init__(self):
 
@@ -180,6 +193,9 @@ class CorrectCurvature:
                 
         return tracking_data
 
+# Class description
+# takes eye tracking data as input (if curvature correction is used it takes the data from the output of the curvature correction as input)
+# determines the general direction in which the test suspect looks 
 class LookDirection:
     def __init__(self):
         user32 = ctypes.windll.user32   # Reads out current resolution
@@ -221,6 +237,8 @@ class LookDirection:
             
             return coordinate_x, coordinate_y
 
+# Class description 
+# Creates a UI which lays above the Carla Client. It shows the most relevant real time information regarding the eye tracker. 
 class TextManager:
     def __init__(self):
         self.canvas = tk.Canvas(root, width=700, height=400) # Creates a canvas inside the window
@@ -254,6 +272,9 @@ class TextManager:
         self.canvas.create_text(350, y_position+30, text="Confidence:", font=("Helvetica", 16), fill="black")
         self.canvas.create_oval(325, y_position+40, 375, y_position+90, fill=tracking_data[3])
 
+# Class description 
+# Has nothing to do with the eye tracker. Creates an example environment in the form of a carla client
+# The eye tracker can be tested inside of this exampe environment 
 class CarlaClient:
     def __init__(self):
         pass
@@ -313,8 +334,8 @@ class CarlaClient:
         vehicle.set_autopilot(True)
 
         return sensor, sensor_rgb
-        
-    def process_segmentation_image(self, image, tracking_data): # Read out the instance based on looking coordinate
+    # Read out the instance based on looking coordinate   
+    def process_segmentation_image(self, image, tracking_data): 
          if tracking_data[0] == "Tracker connected":
 
             global tag
@@ -338,6 +359,7 @@ class CarlaClient:
 
             b, g, r, a = array[y_scaled-1, x_scaled-1, 0], array[y_scaled-1, x_scaled-1, 1], array[y_scaled-1, x_scaled-1, 2], array[y_scaled-1, x_scaled-1, 3] # for BGRA image 
 
+            # connects the numeric tag to the alphabetic tag of the objects 
             red_to_tag_mapping = {
                 0: "Unlabeled",
                 1: "Roads",
@@ -381,6 +403,9 @@ class CarlaClient:
         cv2.imshow("Kameraausgabe_rgb", array)
         cv2.waitKey(1)  
 
+# Class description
+# Is used to collect data for the assessment of the accuracy of the eye tracker. Mouse position is also recorded
+# The object "csv_Logger" can be deactivated if eye tracker ist used in normal operation. 
 class csv_Logger:
     def __init__(self):
         timestamp = time.strftime("%Y%m%d_%H%M%S")
@@ -405,10 +430,10 @@ section_amount = 16
 #calibration = Calibration()
 #calibration_txt = calibration.calibration()
 
-# Logging
+# Logging - only for assessment purposes. Can be deactivated in normal operaion 
 logger = csv_Logger()
 
-# Window to show canvas and black marker for eye position
+# Window to show canvas and black marker for eye position. Can be deactivated if not needed. 
 user32 = ctypes.windll.user32
 screen_width = user32.GetSystemMetrics(0)
 screen_height = user32.GetSystemMetrics(1)
@@ -429,7 +454,7 @@ marker = tk.Button(None,
 start_time = time.time()
 frame_interval = 1/30 # 30 Hz refresh rate
 
-# Start required classes
+# create objects for required classes 
 eye_tracker = EyeTracker()
 look_direction = LookDirection()
 text_manager = TextManager()
@@ -439,10 +464,10 @@ correct_curvature = CorrectCurvature()
 # Start CARLA simulation as client
 carla_client.connect_to_server("localhost")
 sensor = carla_client.example_situation()
-# Callback function to acquire instances of the segmentation
+# Callback function to acquire instances of the segmenation sensor 
 sensor[0].listen(lambda image: carla_client.process_segmentation_image(image, tracking_data))
 
-# Callback function to acquire instances of the segmentation
+# Callback function to acquire instances of the rgb sensor 
 sensor[1].listen(lambda image: carla_client.process_rgb_image(image))
 
 while True:
@@ -458,6 +483,7 @@ while True:
 
         # Calibration & Curvature Correction
         tracking_data_adjusted = correct_curvature.correct(tracking_data_unadjusted)
+
         #tracking_data_cal_adjusted = calibration.add_offset(tracking_data_adjusted) # Calibration is deactivated since curvature correction works better
 
         # For testing the original calibration is not done anymore. Only curvature calibration is done.

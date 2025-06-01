@@ -3,16 +3,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Headline is created automatically
 
-A short summary of the work should be given. This should not exceed one page. The relevant aspects that should be addressed are:
+Im Rahmen dieser Projektarbeit wurde ein Eye Tracker mithilfe einfacher Hardware in einen Fahrsimulator der Hochschule Karlsruhe implementiert. Ziel war es, die Blickposition von Testpersonen in verschiedenen Verkehrsszenarien zu erfassen, um deren Wahrnehmungs- und Entscheidungsprozesse im Straßenverkehr besser analysieren zu können. Es war nicht das Ziel der Arbeit ein eigenes Tracking System von Grund auf selbst zu entwickeln.  Stattdessen sollten bereits existierende Eye Tracking Systeme auf ihre Anwendbarkeit im Fahrsimulator der Hochschule bewertet werden und implementiert werden. Der Hauptbestandteil der Arbeit war es ein geeignetes Eye Tracking System zu finden, dieses in die CARLA Umgebung zu implementieren und Lösungen für ggfs. vorhandene technische Probleme zu finden. 
 
-\begin{enumerate}
-	\item What is the problem/motivation addressed in this work?
-	\item Why is the problem relevant?
-	\item What is the current state of the art / why has the problem not been addressed so far?
-	\item What is your solution? 
-	\item What are the main results and contributions of your work that addressed the original problem
-\end{enumerate}
+Nach einer Marktanalyse wurde der Beam Eye Tracker von Eyeware Tech aufgrund seiner simplen API, kostengünstigen Anschaffung, geringen Hardwareanforderungen und ausreichenden Genauigkeit ausgewählt. Die Implementierung erfolgte mithilfe von Python unter Verwendung der Beam SDK. Die Trackingdaten wurden mit CARLA verknüpft, insbesondere mit den Daten des Instance Segmentation Sensor, um von der vom Eye Tracker geschätzten Blickposition auf die in der Simulation betrachteten Objekte zu schließen. Dadurch kann der Eye Tracker nicht nur die Blickposition der Testperson in x- und y-Koordinaten relativ zum Bildschirm ausgeben, sondern erkennt auch auf welches Objekt die Testperson innerhalb der CARLA Simulationsumgebung zu jedem Zeitpunkt schaut. Innerhalb einer eigens dafür erstellten Testumgebung in CARLA konnte die Schnittstelle zwischen den Daten des Eye Trackers und den Daten des CARLA Instance Segmentation Sensors getestet werden. 
 
-To get an orientation how an abstract can look like, you can take a look into published scientific papers or dissertations. 
+Ein zentrales technisches Problem stellte die gekrümmte Projektionsleinwand des Fahrsimulators dar, die zu Verzerrungen der erfassten Blickdaten führte. Zur Kompensation wurde eine softwarebasierte Korrektur implementiert, die eine mathematische Funktionen verwendet, um den Fehler durch die gekrümmte Leinwand so gut es geht zu minimieren. Die Genauigkeit des implementierten Tracking Systems hat zufriedenstellende Ergebnisse geliefert, besonders unter dem Aspekt des geringen finanziellen Aufwands. Es war möglich ein Eye Tracking System komplett kostenfrei zu implementieren. Die einzigen Kosten die praktisch entstanden sind, waren die der verwendeten Webcam. Eine Implementierung in den Fahrsimulator und in die CARLA Umgebung konnte erfolgreich durchgeführt werden.
 
-
+Die Arbeit belegt, dass bereits mit kostengünstiger Hard- und Software eine effektive Integration von Eye Tracking Systemen in Fahrsimulatoren mit großen und gekrümmten Leinwänden möglich ist und legt damit die Grundlage für zukünftige Experimente zur Fahrverhaltensanalyse. Die Arbeit liefert zudem einige Ansätze mit denen die Tracking Genauigkeit in Zukunft weiter verbessert werden kann. 

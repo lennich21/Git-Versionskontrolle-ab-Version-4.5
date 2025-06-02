@@ -16,6 +16,8 @@ import csv
 # Class Description
 # Acts as an API to the Beam Eye Tracker Software and gets relevant information 
 # Returns data in form of a list 
+
+# Some snippets of this class are based upon the example code from [10]
 class EyeTracker:
     def __init__(self):
         self.tracker = TrackerClient()  # Import the API for the Beam Eye-Tracker
@@ -275,6 +277,7 @@ class TextManager:
 # Class description 
 # Has nothing to do with the eye tracker. Creates an example environment in the form of a carla client
 # The eye tracker can be tested inside of this exampe environment 
+# Some snippets of the class are based on example code from [12]
 class CarlaClient:
     def __init__(self):
         pass

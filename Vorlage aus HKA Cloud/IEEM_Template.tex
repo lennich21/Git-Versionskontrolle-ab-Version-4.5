@@ -18,22 +18,28 @@
 \usepackage[backgroundcolor=white,linecolor=red,bordercolor=red,textsize=footnotesize]{todonotes}
 % Wird benötigt, um Grafiken einzufügen
 \usepackage{graphicx}
+
 \usepackage{tabularx}
 % Wird für Tabellen benötigt
 \usepackage{booktabs} 
+% Dieses Paket wird benötigt, um automatisch ein Abkürzungsverzeichnis zu generieren
 \usepackage[nohyperlinks, printonlyused]{acronym}
+% Wird für das Glossar benötigt
+\usepackage {glossaries}
 % Wird benötigt, um selbst Grafiken zeichnen zu können
 \usepackage{tikz}
 % Wird benötigt, um bestimmte Symbole in Abbildungen zu zeichnen
 \usepackage{amsmath}
 \usepackage{amssymb}
+
 % Wird benötigt, um Wikel zeichnen zu können
 \usetikzlibrary{angles, quotes}
 % Wird zur besseren Positionierung von Grafiken oder Tabellen gebraucht
 \usepackage{float}
 \usepackage[utf8]{inputenc}
-% Dieses Paket wird benötigt, um automatisch ein Abkürzungsverzeichnis zu generieren
-\usepackage{glossaries}
+
+
+
 
 
 
@@ -45,34 +51,11 @@
 %\newcommand{cmd}{def} Define new commands if necessary
 \graphicspath{ {./Bilder/} }
 
-
-
-%%%%% Glossar 
+	% Erstellt das Glossar
 \makeglossaries
 
-
-
-\newglossaryentry{latex}
-{
-	name=latex,
-	description={Is a markup language specially suited for scientific documents}
-}
-
-\newglossaryentry{Spawnpunkt}
-{
-	name=Spawnpunkt,
-	description={Bezeichnet eine 2D oder 3D Koordinate in einer Simulationsumgebung oder in einem Videospiel, an welchem virtuelle Objekte instanziiert werden}
-}
-
-%%%%%% Abkürzungsverzeichnis 
-
-\newacronym{api}{API}{Application Programming Interface}
-
-\newacronym{rgb}{RGB}{Rot, Grün, Blau (Farbraum)}
-
-\newacronym{id}{ID}{Identifikationsnummer}
-
-\newacronym{sdk}{SDK}{Software Development Kit}
+% Stellt sicher, dass die Tabellen absolut gezählt werden und die Nummerierung nicht am aktuellen Kapitel abhängig gemacht wird.
+\counterwithout{table}{chapter}
 
 
 
@@ -122,11 +105,11 @@
 
 
 % TITLE
-\title{Implementierung eines Eye-Tracking Systems in den Fahrsimulator der Hochschule Karlsruhe}
+\title{Implementierung eines Eye Tracking Systems in den Fahrsimulator der Hochschule Karlsruhe}
 
 % TIME FRAME
-\timeframe{01.11.2025 - 01.06.2025} % Delete for dissertations
-\submissiondate{Mai 2025}
+\timeframe{01.11.2024 - 10.06.2025} % Delete for dissertations
+\submissiondate{10. Juni 2025}
 
 % EXAMINERS: The dean is only necessary for student projects (maybe also for dissertations). The third examiner is usually necessary for theses in industry or for dissertations with an external reviewer.  
 %\dean{Prof. Dr.-Ing. Robert Weiß} 
@@ -148,7 +131,6 @@
 % Loads bibliography for citations.
 \preto\fullcite{\AtNextCite{\defcounter{maxnames}{99}}}
 
-
 \addbibresource{literatur.bib}
 % Sorgt dafür, dass die Abbildungsnummierung nicht die Kapitelnummerierung vor dem Komma stehen hat.
 \counterwithout{equation}{chapter}
@@ -159,10 +141,26 @@
 \setcounter{biburlucpenalty}{10000} % break on URL UPPER CASE letters
 
 
+% Ein Bugfix. Irgendein Paketkonflikt schafft Probleme beim Verwenden des acronym Paketes. Fix stammt von: https://tex.stackexchange.com/questions/737204/problem-with-amsmath-cleveref-acronym-continued
+\makeatletter
+\AtBeginDocument
+{
+	\def\ltx@label#1{\cref@label{#1}}%add braces
+	\def\label@in@display@noarg#1{\cref@old@label@in@display{#1}}%remove braces
+	\def\label@in@mmeasure@noarg#1{%
+		\begingroup%
+		\measuring@false%
+		\cref@old@label@in@display{#1}%remove braces 
+		\endgroup}%
+} %
+\makeatother
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	DOCUMENT
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
+	
+	
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%	FRONT MATTER
@@ -201,6 +199,7 @@
 	\addtocontents{toc}{\protect\contentsline{chapter}{Appendix}{}{}}
 	\input{appendix/AppendixA}
 	\input{appendix/AppendixB}
+	\input{appendix/AppendixC}
 	
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -209,22 +208,24 @@
 	% Comment out or delete inputs you don't need
 	\backmatter
 	\listoffigures
+	
 	\addcontentsline{toc}{chapter}{\listfigurename}
-	\newpage
-	\listoftables
-	\addcontentsline{toc}{chapter}{\listtablename}
-	\newpage
-	\listofalgorithms
-	\addcontentsline{toc}{chapter}{\listofalgorithmsname}
-	\newpage
-	\lstlistoflistings
-	\addcontentsline{toc}{chapter}{\lstlistlistingname}
+	
 	\abbrevations{\input{backmatter/abbreviations}}
+	\input{backmatter/glossar}
+	
 	\symbollist{\input{backmatter/symbols}}
 	
 	% Bibliography
 	\printbibliography[heading=bibintoc]	
-		
+	
+	
+	
+
+	
+
+	
+	
 		
 \end{document}
 

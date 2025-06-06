@@ -1,0 +1,364 @@
+\glsdefs@newdocentry{Human-in-the-Loop}%
+{%
+name={Human in the Loop},%
+sort={Human in the Loop},%
+type={main},%
+first={Human in the Loop},%
+firstplural={Human in the Loops},%
+text={Human in the Loop},%
+plural={Human in the Loops},%
+description={Der Mensch ist aktiv am Entscheidungsprozess beteiligt, indem er mit der simulierten oder automatisierten Umgebung interagiert und diese beeinflusst},%
+descriptionplural={Der Mensch ist aktiv am Entscheidungsprozess beteiligt, indem er mit der simulierten oder automatisierten Umgebung interagiert und diese beeinflusst},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{CARLA}%
+{%
+name={CARLA},%
+sort={CARLA},%
+type={main},%
+first={CARLA},%
+firstplural={CARLAs},%
+text={CARLA},%
+plural={CARLAs},%
+description={Open-Source-Simulationsumgebung für autonomes Fahren und Verkehrsszenarien},%
+descriptionplural={Open-Source-Simulationsumgebung für autonomes Fahren und Verkehrsszenarien},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{Instance Segmentation}%
+{%
+name={Instance Segmentation},%
+sort={Instance Segmentation},%
+type={main},%
+first={Instance Segmentation},%
+firstplural={Instance Segmentations},%
+text={Instance Segmentation},%
+plural={Instance Segmentations},%
+description={Verfahren zur Erkennung und Klassifizierung einzelner Objekte in digitalen Bildern},%
+descriptionplural={Verfahren zur Erkennung und Klassifizierung einzelner Objekte in digitalen Bildern},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{Server-Client Struktur}%
+{%
+name={Server-Client Struktur},%
+sort={Server-Client Struktur},%
+type={main},%
+first={Server-Client Struktur},%
+firstplural={Server-Client Strukturs},%
+text={Server-Client Struktur},%
+plural={Server-Client Strukturs},%
+description={Architekturmodell, bei dem ein Server zentrale Ressourcen verwaltet und Clients darauf zugreifen},%
+descriptionplural={Architekturmodell, bei dem ein Server zentrale Ressourcen verwaltet und Clients darauf zugreifen},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{Bildwiederholrate}%
+{%
+name={Bildwiederholrate},%
+sort={Bildwiederholrate},%
+type={main},%
+first={Bildwiederholrate},%
+firstplural={Bildwiederholrates},%
+text={Bildwiederholrate},%
+plural={Bildwiederholrates},%
+description={Wichtiges Kriterium bei Kameras oder Bildschirmen. Gibt an wie viele Bilder pro Sekunde aufgenommen bzw. dargestellt werden},%
+descriptionplural={Wichtiges Kriterium bei Kameras oder Bildschirmen. Gibt an wie viele Bilder pro Sekunde aufgenommen bzw. dargestellt werden},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{Open Source}%
+{%
+name={Open Source},%
+sort={Open Source},%
+type={main},%
+first={Open Source},%
+firstplural={Open Sources},%
+text={Open Source},%
+plural={Open Sources},%
+description={Softwarelizenzmodell – hilfreich zur Abgrenzung gegenüber kommerziellen Systemen},%
+descriptionplural={Softwarelizenzmodell – hilfreich zur Abgrenzung gegenüber kommerziellen Systemen},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{Actor}%
+{%
+name={Actor},%
+sort={Actor},%
+type={main},%
+first={Actor},%
+firstplural={Actors},%
+text={Actor},%
+plural={Actors},%
+description={Oberbegriff für Sensoren, Fahrzeuge etc. im CARLA-Ökosystem},%
+descriptionplural={Oberbegriff für Sensoren, Fahrzeuge etc. im CARLA-Ökosystem},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{Lidar}%
+{%
+name={Lidar},%
+sort={Lidar},%
+type={main},%
+first={Lidar},%
+firstplural={Lidars},%
+text={Lidar},%
+plural={Lidars},%
+description={Alternativer Sensortyp basierend auf Lasertechnologie},%
+descriptionplural={Alternativer Sensortyp basierend auf Lasertechnologie},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{Pixel}%
+{%
+name={Pixel},%
+sort={Pixel},%
+type={main},%
+first={Pixel},%
+firstplural={Pixels},%
+text={Pixel},%
+plural={Pixels},%
+description={Kleinste Einheit eines digitalen Bildes, oft in Bezug auf Bildschirmkoordinaten},%
+descriptionplural={Kleinste Einheit eines digitalen Bildes, oft in Bezug auf Bildschirmkoordinaten},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{Raw-Output}%
+{%
+name={Raw-Output},%
+sort={Raw-Output},%
+type={main},%
+first={Raw-Output},%
+firstplural={Raw-Outputs},%
+text={Raw-Output},%
+plural={Raw-Outputs},%
+description={Unverarbeitete Ausgabedaten des Eye Trackers},%
+descriptionplural={Unverarbeitete Ausgabedaten des Eye Trackers},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{e-Funktion}%
+{%
+name={e-Funktion},%
+sort={e-Funktion},%
+type={main},%
+first={e-Funktion},%
+firstplural={e-Funktions},%
+text={e-Funktion},%
+plural={e-Funktions},%
+description={Mathematische Exponentialfunktion, verwendet zur Modellierung von Anstiegsverhalten},%
+descriptionplural={Mathematische Exponentialfunktion, verwendet zur Modellierung von Anstiegsverhalten},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{quadratische Funktion}%
+{%
+name={Quadratische Funktion},%
+sort={Quadratische Funktion},%
+type={main},%
+first={Quadratische Funktion},%
+firstplural={Quadratische Funktions},%
+text={Quadratische Funktion},%
+plural={Quadratische Funktions},%
+description={Mathematische Exponentialfunktion, verwendet zur Modellierung von Anstiegsverhalten},%
+descriptionplural={Mathematische Exponentialfunktion, verwendet zur Modellierung von Anstiegsverhalten},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{V-Funktion}%
+{%
+name={V-Funktion},%
+sort={V-Funktion},%
+type={main},%
+first={V-Funktion},%
+firstplural={V-Funktions},%
+text={V-Funktion},%
+plural={V-Funktions},%
+description={Mathematische Exponentialfunktion, verwendet zur Modellierung von Anstiegsverhalten},%
+descriptionplural={Mathematische Exponentialfunktion, verwendet zur Modellierung von Anstiegsverhalten},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+

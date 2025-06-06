@@ -56,7 +56,7 @@
 \RequirePackage{float}
 \RequirePackage[pdfencoding=auto,pdfborderstyle={/S/U/W 1},linkbordercolor=ref,colorlinks,linkcolor=ref,citecolor=cite,urlcolor=url]{hyperref} % Clickable references.
 \RequirePackage[all]{hypcap} % Anchors links to the beginning of their respective floats. Load after hyperref.
-\RequirePackage[autolang=hyphen, backend=biber, urldate=long, maxbibnames=99]{biblatex}
+\RequirePackage[autolang=hyphen, backend=biber, urldate=long, maxbibnames=99, style=numeric, sorting=none]{biblatex}
 \RequirePackage[format=plain, labelfont={bf}, labelsep=colon]{caption}
 
 

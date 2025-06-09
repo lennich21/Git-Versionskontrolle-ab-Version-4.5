@@ -3,6 +3,7 @@
 
 \section{Problemursache}
 \subsection{Hauptproblem}
+<<<<<<< HEAD
 Die Leinwand des Fahrsimulators ist nicht flach, sondern besitzt eine halbkreisförmige Form. Der Eye Tracker hat keine Einstellmöglichkeit, um eine gekrümmte Leinwand zu berücksichtigen. Dadurch entstehen Abweichungen zwischen der vom Eye Tracker geschätzten Blickposition und der realen Blickposition. Abbildung \ref{fig:kruemmungsproblem_1} visualisiert dieses Problem. 
 
 
@@ -45,6 +46,51 @@ Die Leinwand des Fahrsimulators ist nicht flach, sondern besitzt eine halbkreisf
 % Das Label wird gebraucht, um im Text auf diese Abbildung zu referenzieren
 
 In Abbildung \ref{fig:kruemmungsproblem_1} sind die gekrümmte Leinwand sowie eine flache Leinwand zu erkennen. Aus Sicht des Eye Trackers existiert nur die flache Leinwand. Ein grauer Punkt kennzeichnet die Position der Testperson im Fahrsimulator. Pfeil a.) zeigt direkt von der Position der Testperson in einem Winkel von 0° auf die Mitte der Leinwand. Die Abbildung verdeutlicht, dass es in diesem Punkt keine Abweichung zwischen der flachen Leinwand und der gekrümmten Leinwand gibt. Aus diesem Grund ist zu erwarten, dass der Eye Tracker in diesem Punkt die genausten Ergebnisse liefert. 
+=======
+Die Leinwand des Fahrsimulators ist nicht flach sondern besitzt eine halbkreisförmige Form. Der Eye Tracker hat keine Einstellmöglichkeit, um eine gekrümmte Leinwand zu berücksichtigen. Dadurch entstehen Abweichungen zwischen der vom Eye Tracker geschätzten Blickposition und der realen Blickposition. Abbildung \ref{fig:kruemmungsproblem_1} visualisiert dieses Problem. 
+
+
+
+\begin{figure}
+	\begin{center}
+		\begin{tikzpicture}
+			%\draw [lightgray](0,0) grid (10,10);
+			
+			
+			% Zeichnet die Flache Leinwand
+			\draw[thick] (1,9) -- (9,9);
+			
+			% Zeichnet die linke und rechte Häfte des Halblreises der Leinwand
+			\draw (2.45,6.45) arc (180:90:2.546479);
+			\draw (7.55,6.45) arc (0:90:2.546479);
+			
+			% Zeichnet Kreis die Testperson darstellt 
+			\fill[gray] (5, 6.5) circle [radius=0.2];
+			
+			% Zeichnet Pfeil 1 (zeigt direkten Blick nach vorne)
+			\draw[thick][-stealth][red] (5,6.5) -- (5,9) node[midway, right, black] {$\mathbf{a.)}$};
+			
+			% Zeichnet Pfeil 2 (zeigt Blick nach links)
+			\draw[thick][-stealth][red] (5,6.5) -- (1,9) node[midway, right, black] {$\mathbf{b.)}$};
+			
+			% Zeichnet Pfeil 3 (zeigt falsche Anzeige auf Bildschirm)
+			\draw[thick][dashed][-stealth][blue] (5,6.5) -- (2.45,6.45) node[midway, below, black] {$\mathbf{c.)}$};
+		\end{tikzpicture}
+		\caption[]
+		{Visualisierung der verzerrenden Wirkung einer gekrümmten Leinwand auf die Ergebnisse des Eye Trackers}
+		\captionsetup{justification=justified, singlelinecheck=false}
+		{\footnotesize Grauer Punkt - Sitzposition der Testperson\\
+		a.) - Direkte Blickrichtung auf Mitte der Leinwand (0° Winkel)\\
+		b.) - Vom Eye Tracker angenommene Blickrichtung zum äußeren linken Rand einer imaginär flachen Leinwand\\
+		c.) - Tatsächliche Blickrichtung zum äußeren linken Rand der realen, gekrümmten Leinwand
+		}
+		 \label{fig:kruemmungsproblem_1}
+	\end{center}
+	% Das Label wird gebraucht, um im Text auf diese Abbildung zu referenzieren
+\end{figure}
+
+In Abbildung \ref{fig:kruemmungsproblem_1} ist die gekrümmte Leinwand, sowie eine flache Leinwand zu erkennen. Aus Sicht des Eye Trackers existiert nur die flache Leinwand. Ein grauer Punkt kennzeichnet die Position der Testperson im Fahrsimulator. Pfeil a.) zeigt direkt von der Testpostion in einem Winkel von 0° auf die Mitte der Leinwand. Die Abbildung verdeutlicht, dass es in diesem Punkt keine Abweichung zwischen der flachen Leinwand und der gekrümmten Leinwand gibt. Aus diesem Grund ist zu erwarten, dass der Eye Tracker in diesem Punkt die genausten Ergebnisse liefert. 
+>>>>>>> fd0befd8e95e2bae230d21ece8a1862eada6b577
 
 Pfeil b.) zeigt ein zweites Szenario. Die Testperson schaut in diesem Fall nach links. Es ist zu erkennen, dass sie mit ihrem Blick die gekrümmte Leinwand auf der linken Seite etwas links von der Mitte trifft. Wenn der Blick der Testperson allerdings imaginär verlängert wird und dadurch auf die imaginäre, flache Leinwand trifft, wird die Abweichung erkennbar. Es ist zu erwarten, dass der Eye Tracker die Blickposition auf den linken Bildschirmrand schätzt, obwohl die reale Blickposition einen gewissen Abstand zum Bildschirmrand besitzt. In einem optimierten System würde der Eye Tracker die Blickposition, welche mit Pfeil b.) dargestellt ist, nur dann schätzen, wenn die Testperson auf den Punkt schaut, welcher mit Pfeil c.) dargestellt ist.
 
@@ -108,7 +154,11 @@ Es besteht kein gleichbleibender Zusammenhang zwischen der Blickposition auf der
 		\draw[thick][-stealth][blue] (2.45, 6.5) -- (1, 9.05) node[midway, right, black] {$\mathbf{b.)}$} coordinate;
 			
 		\end{tikzpicture}
+<<<<<<< HEAD
 		\captionof{figure}[Visualisierung der nichtlinearen Transformation]{Visualisierung der nichtlinearen Transformation}
+=======
+		\caption[]{Visualisierung der nichtlinearen Transformation}
+>>>>>>> fd0befd8e95e2bae230d21ece8a1862eada6b577
 		\captionsetup{justification=justified, singlelinecheck=false}
 		{\footnotesize Grauer Punkt - Sitzposition der Testperson\\
 		a.) - Blickrichtung um 90° nach links auf den äußeren linken Rand der realen gekrümmten Leinwand\\
@@ -129,6 +179,7 @@ In den Abbildungen \ref{fig:kruemmungsproblem_1} und \ref{fig:kruemmungsproblem_
 Eine weitere Abweichung von den Annahmen weiter oben ist die um links verschobene Sitzposition der Testperson im Fahrsimulator. Bisher wurde angenommen, dass die Testperson direkt gegenüber der Mitte der Leinwand sitzt. In der Realität ist sie durch das nachgebaute Fahrzeugcockpit leicht nach links versetzt. Dadurch verhält sich die Transformation von flacher auf gekrümmte Leinwand links unterschiedlich als rechts. Abbildung \ref{fig:kruemmungsproblem_3} visualisiert diese Einflüsse. 
 
 
+<<<<<<< HEAD
 
 \begin{center}
 	\begin{tikzpicture}
@@ -187,6 +238,66 @@ Eine weitere Abweichung von den Annahmen weiter oben ist die um links verschoben
 	f.) - Transformation von Pfeil e.) auf die imaginäre flache Leinwand} \label{fig:kruemmungsproblem_3}
 \end{center}
 
+=======
+\begin{figure}
+	\begin{center}
+		\begin{tikzpicture}
+			%\draw [lightgray](0,0) grid (10,10);
+			
+			
+			% Zeichnet die Flache Leinwand
+			\draw[thick] (1,9.05) -- (9,9.05);
+			
+			% Zeichnet die linke und rechte Häfte des Halblreises der Leinwand
+			\draw (2.45,6.5) arc (180:90:2.546479);
+			\draw (7.55,6.5) arc (0:90:2.546479);
+			
+			% Zeichnet Kreis die Testperson darstellt 
+			\fill[gray] (4, 7) circle [radius=0.2];
+			
+			% Zeichnet Pfeil 1 (zeigt direkten Blick nach vorne)
+			\draw[-stealth][thick][black] (4,7) -- (5,9.05) node[midway, right, black] {$\mathbf{}$} coordinate (direkt);
+			
+			% Zeichnet Pfeil 2 a.)(zeigt Blick nach links)
+			\draw[thick][-stealth][red] (4,7) -- (2.45, 6.5) node[midway, below, black] {$\mathbf{a.)}$} coordinate (blick);
+			
+			%Ursprung zwischen den zwei Pfeilen 
+			\coordinate (O) at (4,7);
+			
+			
+			
+			
+			% Zeichnet Pfeil 3 b.) (zeigt Transformation zwischen gekrümmter und flacher Leinwand)
+			\draw[thick][-stealth][blue] (2.45, 6.5) -- (1, 9.05) node[midway, right, black] {$\mathbf{b.)}$} coordinate (blick_transform);
+			
+			
+			
+			% Zeichnet Pfeil 4 c.)(zeigt Blick nach links weiter in Mitte)
+			\draw[thick][-stealth][red] (4,7) -- (3.22, 8.3) node[midway, left, black] {$\mathbf{c.)}$} coordinate (blick2);
+			
+			% Zeichnet Pfeil 5 d.) (Transformatio von c.) zu flacher Leinwand)
+			\draw[thick][-stealth][blue] (3.22, 8.3) -- (3, 9.05) node[midway, left, black] {$\mathbf{d.)}$} coordinate (blick2_transform);
+			
+			
+			% Zeichnet Pfeil 6 e.)(zeigt Blick nach rechts)
+			\draw[thick][-stealth][red] (4,7) -- (7.55, 6.5) node[midway, below, black] {$\mathbf{e.)}$} coordinate (blick3);
+			
+			% Zeichnet Pfeil 7 f.) (Transformatio von e.) zu flacher Leinwand)
+			\draw[thick][-stealth][blue] (7.55, 6.5) -- (9, 9.05) node[midway, left, black] {$\mathbf{f.)}$} coordinate (blick3_transform);
+			
+		\end{tikzpicture}
+		\caption[]{Visualisierung der Verschiebung der Sitzposition der Testperson}
+		\captionsetup{justification=justified, singlelinecheck=false}
+		{\footnotesize Grauer Punkt - Sitzposition der Testperson\\
+		a.) - Blickrichtung auf den äußeren linken Rand der realen gekrümmten Leinwand\\
+		b.) - Transformation von Pfeil a.) auf die imaginäre flache Leinwand\\
+		c.) - Blick nach links auf die realen gekrümmten Leinwand\\
+		d.) - Transformation von Pfeil c.) auf die imaginäre flache Leinwand\\
+		e.) - Blickrichtung auf den äußeren rechten Rand der realen gekrümmten Leinwand\\
+		f.) - Transformation von Pfeil e.) auf die imaginäre flache Leinwand} \label{fig:kruemmungsproblem_3}
+	\end{center}
+\end{figure}
+>>>>>>> fd0befd8e95e2bae230d21ece8a1862eada6b577
 
 Es ist zu erkennen, dass in diesem Szenario vor allem zwischen der Blickrichtung c.) und der Transformation d.) kaum Fehler besteht. Durch die Sitzposition weiter links wird dort eine geringere Abweichung zwischen gekrümmter und flacher Leinwand bestehen. Experimente am Fahrsimulator haben diese Annahme bestätigt. Besonders in der Mitte der linken Seite hat der Eye Tracker gut geschätzt. Weiter links und sehr weit rechts wurde die Genauigkeit ohne eine Transformation auf die gekrümmte Leinwand wesentlich schlechter. 
 
@@ -201,6 +312,7 @@ Bei der Transformation ist nur die Horizontale von Relevanz. Vertikale \Gls{Pixe
 
 
 
+<<<<<<< HEAD
 
 \begin{center}
 	\begin{tikzpicture}
@@ -318,6 +430,124 @@ Allerdings befindet sich der Punkt, welcher keine Korrektur benötigt, nach wie 
 % Lösungsansatz zur Transformation
 
 Basierend auf diesen Erkenntnissen können mathematische Näherungen aufgestellt werden, mit denen der Fehler reduziert werden soll.
+=======
+\begin{figure}
+	\begin{center}
+		\begin{tikzpicture}
+			%\draw [lightgray](0,0) grid (10,10);
+			
+			
+			% Zeichnet die Flache Leinwand
+			\draw[thick] (1,9.05) -- (9,9.05);
+			
+			% Zeichnet die linke und rechte Häfte des Halblreises der Leinwand
+			\draw (2.45,6.5) arc (180:90:2.546479);
+			\draw (7.55,6.5) arc (0:90:2.546479);
+			
+			% Zeichnet Kreis die Testperson darstellt 
+			\fill[gray] (4, 7) circle [radius=0.2];
+			
+			% Zeichnet Pfeil 1 (zeigt direkten Blick nach vorne)
+			\draw[-stealth][thick][black] (4,7) -- (5,9.05) node[midway, right, black] {$\mathbf{a.)}$} coordinate (direkt);
+			
+			%Ursprung zwischen den zwei Pfeilen 
+			\coordinate (O) at (4,7);
+			
+			% Zeichnet Pfeil 4 c.)(zeigt Blick nach links weiter in Mitte)
+			\draw[thick][-stealth][red] (4,7) -- (3.22, 8.3) node[right,yshift=-4pt, black] {$\mathbf{d.)}$} coordinate (blick2);
+			
+			% Zeichnet Pfeil 5 d.) (Transformatio von c.) zu flacher Leinwand)
+			\draw[thick][-stealth][blue] (3.22, 8.3) -- (3, 9.05) node[midway, right, black] {$\mathbf{c.)}$} coordinate (blick2_transform);
+			
+			
+			% Zeichnet Pfeil 3 d.) (Zeigt Pfeil ohne korrigierende Transformation)
+			\draw[thick][-stealth][green] (3.95,7) -- (2.7, 9.05) node[midway, left, yshift=12pt,xshift=-6pt, black] {$\mathbf{b.)}$} coordinate (blick_transform);
+			
+			\shorthandoff{"}%	
+			\pic [draw, <->,
+			angle radius=8mm, angle eccentricity=1.2,
+			"$\alpha$", right] {angle = direkt--O--blick2};
+			\shorthandon{"}%
+			
+			\shorthandoff{"}%
+			% Zeichnet den Fehler ein 
+			\draw [thick](2.7,9.1) -- (3,9.1)
+			node[midway,above , black] {$\mathbf{\Delta F}$};
+			\shorthandon{"}%
+			
+		\end{tikzpicture}
+		\caption[]{Graphische Darstellung des Lösungsansatzes für die Transformation}
+		\captionsetup{justification=justified, singlelinecheck=false}
+		{\footnotesize Grauer Punkt - Sitzposition der Testperson\\
+		a.) - Blickrichtung auf die Mitte der realen gekrümmten Leinwand\\
+		b.) - Vom Eye Tracker erkannte Blickrichtung auf der imaginären geraden Leinwand, wenn Testperson in Blickrichtung d.) auf gekrümmter Leinwand schaut\\
+		c.) - Korrekte Transformation von gekrümmter Leinwand auf gerade Leinwand\\
+		d.) - Blick der Testperson auf einen Punkt auf der gekrümmten Leinwand\\
+		$\alpha$ - Winkel zwischen Blickrichtung zur Mitte der realen gekrümmten Leinwand und aktueller Blickrichtung\\
+		$\Delta$F - Fehler zwischen erkannter Blickrichtung b.) und tatsächlicher Blickrichtung c.) bezogen auf imaginäre gerade Leinwand
+		} \label{fig:kruemmungsproblem_4}
+	\end{center}
+	% Lösungsansatz zur Transformation
+\end{figure}
+
+In Abbildung \ref{fig:kruemmungsproblem_4} ist der Vektor von der Sitzposition zur Mitte der gekrümmten Leinwand durch a.) gegeben. Die Testperson schaut bezogen auf die gekrümmte Leinwand in Richtung Pfeil d.). Der Eye Tracker würde jetzt allerdings den Punkt auf welchen Pfeil b.) zeigt erkennen. Dieser würde wiederum mit einem anderen Punkt auf dem Halbkreis korrespondieren. Welcher in der Abbildung nicht dargestellt wird, weil es sonst zu unübersichtlich wird. Die Ausgabe des Eye Trackers muss so transformiert werden, dass sie anstelle des in Pfeil b.) dargestellten Punktes den in Pfeil c.) gezeigten Punkt angibt. Es muss also eine Transformation um den Fehler $\Delta$ F stattfinden.
+
+
+Die Berechnung von $\Delta$F ist ein mathematisches Problem. Durch die nach links verschobene Sitzposition und die fehlenden Längenangaben der einzelnen Pfeile ist die Berechnung recht komplex. Ein alternativer Ansatz wäre eine Funktion, welche grob eine Transformation durchführt und vor Ort feinjustiert wird. In Abbildung \ref{fig:kruemmungsproblem_5} ist zu erkennen, dass bei einem Blick in die Mitte der linken Hälfte der gekrümmten Leinwand, eine leichte Korrektur nach rechts notwendig ist. Pfeil c.) aus Abbildung \ref{fig:kruemmungsproblem_5} verdeutlicht, dass auf der rechten Seite der Halbkugel eine Korrektur nach links notwendig ist und diese stärker ausfallen muss, als auf der linken Seite. Aus den vorherigen Abbildungen ist zudem herauszulesen, dass das Problem umso stärker wird, je näher sich der Blick den Rändern der Leinwand annähert. Dabei ist es egal, ob linke Hälfte oder rechte Hälfte. 
+Allerdings befindet sich der Punkt, welcher keine Korrektur benötigt, nach wie vor in der Mitte der Leinwand, unabhängig von der Sitzposition der Testperson.
+
+\begin{figure}
+	\begin{center}
+		\begin{tikzpicture}
+			%\draw [lightgray](0,0) grid (10,10);
+			
+			
+			% Zeichnet die Flache Leinwand
+			\draw[thick] (1,9.05) -- (9,9.05);
+			
+			% Zeichnet die linke und rechte Häfte des Halblreises der Leinwand
+			\draw (2.45,6.5) arc (180:90:2.546479);
+			\draw (7.55,6.5) arc (0:90:2.546479);
+			
+			% Zeichnet Kreis die Testperson darstellt 
+			\fill[gray] (4, 7) circle [radius=0.2];
+			
+			% Zeichnet Pfeil 1 (zeigt direkten Blick nach vorne)
+			\draw[-stealth][thick][black] (4,7) -- (5,9.05) node[midway, right, black] {$\mathbf{}$} coordinate (direkt);
+			
+			%Ursprung zwischen den zwei Pfeilen 
+			\coordinate (O) at (4,7);
+			
+			
+			
+			% Zeichnet Pfeil 4 c.)(zeigt Blick nach links weiter in Mitte)
+			\draw[thick][-stealth][red] (4,7) -- (3.22, 8.3) node[midway, left, black] {$\mathbf{a.)}$} coordinate (blick2);
+			
+			% Zeichnet Pfeil 5 d.) (Transformatio von c.) zu flacher Leinwand)
+			\draw[thick][-stealth][blue] (3.22, 8.3) -- (3, 9.05) node[midway, left, black] {$\mathbf{b.)}$} coordinate (blick2_transform);
+			
+			
+			
+			% Zeichnet Pfeil 4 c.)(zeigt Blick nach links weiter in Mitte)
+			\draw[thick][-stealth][red] (4,7) -- (6.82, 8.3) node[midway, left, black] {$\mathbf{c.)}$} coordinate (blick2);
+			
+			% Zeichnet Pfeil 5 d.) (Transformatio von c.) zu flacher Leinwand)
+			\draw[thick][-stealth][blue] (6.82, 8.3) -- (7, 9.05) node[midway, right, black] {$\mathbf{d.)}$} coordinate (blick2_transform);
+			
+			
+		\end{tikzpicture}
+		\caption[]{Bestimmung der notwendigen Korrektur auf beiden Halbseiten des Halbkreises}
+		\captionsetup{justification=justified, singlelinecheck=false}
+		{\footnotesize Grauer Punkt - Sitzposition der Testperson\\
+		a.) - Blickrichtung auf einen Punkt auf der linken Hälfte der gekrümmten Leinwand\\
+		b.) - Korrekte Transformation von Blickrichtung a.) auf die imaginäre gerade Leinwand\\
+		c.) - Blickrichtung auf einen Punkt auf der rechten Hälfte der gekrümmten Leinwand\\
+		d.) - Korrekte Transformation von Blickrichtung c.) auf die imaginäre gerade Leinwand}
+		\label{fig:kruemmungsproblem_5}
+	\end{center}
+	% Lösungsansatz zur Transformation
+\end{figure}
+>>>>>>> fd0befd8e95e2bae230d21ece8a1862eada6b577
 
 \subsection{Mathematischer Ansatz e-Funktion}
  
@@ -330,7 +560,11 @@ Basierend auf diesen Erkenntnissen können mathematische Näherungen aufgestellt
 	\end{cases}
 \end{equation}
 
+<<<<<<< HEAD
 In einem ersten Ansatz wurde eine Korrekturfunktion verwendet, die auf einer \Gls{e-Funktion} basiert. Die Funktion ist dabei abschnittsweise definiert. Je nachdem ob die Testperson auf die linke oder auf die rechte Bildschirmhälfte schaut, wird eine jeweils andere Korrekturfunktion eingesetzt, um den Korrekturwert zu berechnen. Die abschnittweise Funktion ist in Gleichung \ref{eq:1} zu erkennen.
+=======
+In einem ersten Ansatz wurde eine Korrekturfunktion verwendet, die auf einer \Gls{e-Funktion} basiert. Die Funktion ist dabei abschnittsweise definiert. Je nachdem ob die Testperson auf die linke oder auf die rechte Bildschirmhälfte schaut, wird eine jeweils andere Korrekturfunktion eingesetzt, um den Korrekturwert zu berechnen. Die Abschnittweise Funktion ist in Gleichung \ref{eq:1} zu erkennen.
+>>>>>>> fd0befd8e95e2bae230d21ece8a1862eada6b577
 
 Dabei ist: 
 \begin{center}
@@ -372,10 +606,18 @@ Der mathematische Ansatz wurde im Fahrsimulator getestet und es konnten zwar Ver
 
 \subsection{Limitierung des Sichtbereichs durch Lösungsansatz}
 
+<<<<<<< HEAD
 Wie bereits beschrieben erzeugt die Funktion aus dem ersten Ansatz ein verringertes Sichtfeld. Das reduziert den effektiven Erfassungsbereich des Eye Trackers im Vergleich zum Zustand ohne Korrektur. Angenommen, die Testperson lenkt ihren Blick immer weiter nach links. Ab einem gewissen Punkt erreicht sie den Punkt x=0 (linke Bildschirmhälfte) auf der imaginären flachen Leinwand. Das entspricht in etwa dem letzten Drittel auf der linken Bildschirmhälfte der gekrümmten Leinwand. Ist dieser Punkt erreicht, gibt der \Gls{Raw-Output} des Eye Trackers einen Wert von x=0 aus, weil auf einer flachen Leinwand der linke Rand erreicht worden wäre. Bewegt die Testperson ab diesem Punkt den Blick auf der gekrümmten Leinwand noch weiter nach links, dann ändert sich an dem Wert x=0 nichts mehr, weil der Eye Tracker denkt der Blick der Testperson wäre bereits am Rand. Parallel zu diesem Phänomen erreicht der berechnete Korrekturwert am Rand sein Maximum. Angenommen, der Korrekturwert würde am Rand einen Wert von 700 Pixel annehmen. Der linke Rand ist auf der flachen Leinwand bei x=0 Pixel. Auf der gekrümmten Leinwand ist dieser Wert allerdings weiter rechts. Die linke Bildschirmhälfte umfasst 2222 Pixel. Der Punkt auf der gekrümmten Leinwand liegt in etwa am Ende des ersten Drittels. $\frac{1}{3} \cdot 2222 = 740$ Pixel. Wenn dieser Punkt erreicht ist, dann wird auf diese 740 Pixel der Korrekturfaktor von 700 Pixel addiert. Es ergibt sich eine berechnete Position von 740+700 Pixel und somit 1140 Pixel. Schaut die Testperson noch weiter nach links, wird das vom Eye Tracker nicht mehr erfasst, weil die detektierte Blickposition bei der flachen Leinwand weiterhin bei x=0 ist. Auf der gekrümmten Leinwand bleibt die berechnete Blickposition bei x=1140 Pixel hängen. Gleichzeitig bleibt auch der Korrekturwert von 700 Pixel identisch, weswegen eine statische Grenze von 1140 Pixel vom linken Rand entfernt entsteht. Wird der Koeffizient c erhöht, dann wird die Korrekturkurve dadurch steiler. Das wiederum sorgt für eine stärkere Korrekturwirkung. Angenommen, der höhere Korrekturfaktor ist in diesem Beispiel nicht mehr 700 Pixel, sondern 900 Pixel. Die neue statische Grenze liegt jetzt bei 740 Pixel + 900 Pixel = 1640 Pixel vom linken Rand entfernt. Das bedeutet, dass ein höherer Korrekturfaktor c die Korrektur stärker macht und gleichzeitig den verwendbaren Bereich des Eye Trackers einschränkt. Auf der rechten Bildschirmhälfte tritt der Effekt noch stärker auf, da dort noch zusätzlich mit dem Korrekturkoeffizienten $k_r$ gerechnet wird. 
 
 
 Hieraus kann das Fazit gezogen werden: Höherer Korrekturkoeffizient c bedeutet eine stärkere Korrektur und möglicherweise bessere Ergebnisse. Gleichzeitig wird aber der Sichtbereich, in welchem der Eye Tracker eingesetzt werden kann, verschmälert. Dieses Problem wird auch bei anderen Korrekturfunktionen bestehen. 
+=======
+Wie bereits beschrieben erzeugt die Funktion aus dem ersten Ansatz ein verringertes Sichtfeld. Das reduziert den effektiven Erfassungsbereich des Eye Trackers im Vergleich zum Zustand ohne Korrektur. Angenommen die Testperson lenkt ihren Blick immer weiter nach links. Ab einem gewissen Punkt erreicht sie den Punkt x=0 auf der imaginären flachen Leinwand. Das entspricht in etwa dem letzten drittel auf der linken Bildschirmhälfte der gekrümmten Leinwand. Ist dieser Punkt erreicht, gibt der \Gls{Raw-Output} des Eye Trackers einen Wert von x=0 aus, weil auf einer flachen Leinwand der linken Rand erreicht worden wäre. Bewegt die Testperson ab diesem Punkt den Blick auf der gekrümmten Leinwand noch weiter nach links, dann ändert sich an dem Wert x=0 nichts mehr, weil der Eye Tracker denkt der Blick der Testperson wären bereits am Rand. Parallel zu diesem Phänomen erreicht der berechnete Korrekturwert am Rand sein Maximum. Angenommen der Korrekturwert würde am Rand eine Wert von 700 Pixel annehmen. Der linke Rand ist auf der flachen Leinwand bei x=0 Pixel. Auf der gekrümmten Leinwand ist dieser Wert allerdings weiter rechts. Die linke Bildschirmhälfte umfasst 2222 Pixel. Der Punkt auf der gekrümmten Leinwand liegt in etwa am Ende des ersten Drittels. $\frac{1}{3} \cdot 2222 = 740$ Pixel. Wenn dieser Punkt erreicht ist, dann wird auf diese 740 Pixel der Korrekturfaktor von 700 Pixel addiert. Es ergibt sich eine berechnete Position von 740+700 Pixel und somit 1140 Pixel. Schaut die Testperson noch weiter nach links, wird das vom Eye Tracker nicht mehr erfasst, weil die detektierte Blickposition bei der flachen Leinwand weiterhin bei x=0 ist. Auf der gekrümmten Leinwand bleibt die berechnete Blickposition bei x=1140 Pixel hängen. Gleichzeitig bleibt auch der Korrekturwert von 700 Pixel identisch, weswegen eine statische Grenze von 1140 Pixel vom linken Rand entfernt entsteht. Wird der Koeffizient c erhöht, dann wird die Korrekturkurve dadurch steiler. Das wiederum sorgt für eine stärkere Korrekturwirkung. Angenommen der höhere Korrekturfaktor ist in diesem Beispiel nicht mehr 700 Pixel, sondern 900 Pixel. Die neue statische Grenze liegt jetzt bei 740 Pixel + 900 Pixel = 1640 Pixel vom linken Rand entfernt. Das bedeutet, dass ein höherer Korrekturfaktor c die Korrektur stärker macht und gleichzeitig den verwendbaren Bereich des Eye Trackers einschränkt. Auf der rechten Bildschirmhälfte tritt der Effekt noch stärker auf, da dort noch zusätzlich mit dem Korrekturkoeffizient $k_r$ gerechnet wird. 
+
+
+Hieraus kann das Fazit gezogen werden: Höherer Korrekturkoeffizient c bedeutet eine stärkere Korrektur und möglicherweise bessere Ergebnisse. Gleichzeitig wird aber der Sichtbereich, in welchem der Eye Tracker eingesetzt werden kann, verschmälert. Dieses Problem wird auch bei anderen Korrekturfunktion bestehen. 
+
+>>>>>>> fd0befd8e95e2bae230d21ece8a1862eada6b577
 
 \newpage
 
@@ -395,11 +637,17 @@ Anstatt einer e-Funktion wird eine \Gls{quadratische Funktion} eingesetzt. Das $
 Die Korrektur mit der neuen Funktion wurde im Labor experimentell getestet. Dabei wurde auch Fine-Tuning durchgeführt, um die Funktion so gut es geht an die realen Gegebenheiten anzupassen. Die Kombination der Parameter c=0.012 und $k_r=1.5$ lieferte die geringste Abweichung im Versuch. 
 
 
+<<<<<<< HEAD
 \begin{center}
 	\includegraphics[scale=0.5]{first_correction_function_initialparam}
 	\captionof{figure}{Visualisierung quadratische Korrekturfunktion, Quelle: \cite{lit_software_matlab}} \label{fig:imag8}
 \end{center}
 
+=======
+Abbildung \ref{fig:imag8} zeigt, dass im Vergleich zur e-Funktion eine stärkere Korrektur in der Nähe der Mitte der Leinwand stattfindet. An den Rändern ist der Korrekturwert nicht so hoch wie bei der e-Funktion, wodurch der nutzbare Sichtbereich weniger stark eingeschränkt wird. 
+
+Im Fahrsimulator konnte eine leichte Verbesserung nachgewiesen werden. Hierzu wurde eine Auswertung der Ergebnisse durchgeführt. 
+>>>>>>> fd0befd8e95e2bae230d21ece8a1862eada6b577
 
 Abbildung \ref{fig:imag8} zeigt, dass im Vergleich zur e-Funktion eine stärkere Korrektur in der Nähe der Mitte der Leinwand stattfindet. An den Rändern ist der Korrekturwert nicht so hoch wie bei der e-Funktion, wodurch der nutzbare Sichtbereich weniger stark eingeschränkt wird. 
 
@@ -417,6 +665,21 @@ Auf der y-Achse ist die vom Eye Tracker geschätzte Blickposition aufgetragen. D
 
 Es ist zu erkennen, dass der Sichtbereich auch bei der Verwendung einer quadratischen Korrekturfunktion eingeschränkt wird. Diese Einschränkung konnte allerdings reduziert werden. Bei der e-Funktion war der maximale Korrekturwert auf der linken Bildschirmhälfte k=2400. Bei der abgestimmten, quadratischen Korrekturfunktion liegt das Maximum bei k=700. Es stehen somit auf der linken Bildschirmhälfte 1800 Pixel mehr für das Tracking zur Verfügung. Die Auswertung stimmt mit den theoretischen Überlegungen soweit überein, dass bei ca. 2222 Pixel ein Fehler von null vorhanden ist. Das liegt daran, dass die gekrümmte Leinwand und eine äquivalente, imaginäre, gerade Leinwand in der Bildschirmmitte bei 2222 Pixel identisch sind. 
 Um die Verbesserungen deutlich zu erkennen, müssen bestimmte Bereiche genauer betrachtet werden: 
+<<<<<<< HEAD
+=======
+-
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[scale=0.3]{first_correction_function_results_zoomed}
+		\caption{Gegenüberstellung reale Blickposition und Eye Tracker-Werte im Detail: unkalibriert (links), kalibriert (rechts), Quelle: \cite{lit_software_matlab}} \label{fig:imag10}
+	\end{center}
+\end{figure}
+
+In Abbildung \ref{fig:imag10} ist ein Detail-Ausschnitt der Ergebnisse der linken Leinwand-Hälfte zu erkennen. Es ist deutlich zu sehen, dass die Werte nach der Kalibrierung näher an der idealen Geraden liegen. Je näher sich die Blickposition dem linken Bildschirmrand näher, umso geringer wird der absolute Fehler. Es ist festzustellen, dass in Richtung Bildschirmmitte weiterhin zu wenig korrigiert wird. Dort ist ein geringer Fehler zwischen gekrümmter und gerade Leinwand zu erwarten. Dennoch ist der dort fast so hoch wie in Randnähe. Würde der Parameter c erhöht werden, dann würde der Fehler reduziert werden. Gleichzeitig würde der nutzbare Erfassungsbereich des Eye Trackers reduziert werden. Es bestehen dieselben Probleme wie bei der e-Funktion, nur weniger stark ausgeprägt. 
+
+Eine Funktion 4. Grades scheint auf den ersten Blick sinnvoll. Diese steigt zwar stärker an als eine quadratische Funktion, allerdings besitzt sie in ihrem Ursprung ein Plateau. Dadurch wäre die Korrektur im Bereich der Bildschirmmitte definitiv nicht ausreichend. 
+>>>>>>> fd0befd8e95e2bae230d21ece8a1862eada6b577
 
 
 \begin{center}
@@ -424,6 +687,7 @@ Um die Verbesserungen deutlich zu erkennen, müssen bestimmte Bereiche genauer b
 	\captionof{figure}{Gegenüberstellung reale Blickposition und Eye Tracker-Werte im Detail: unkalibriert (links), kalibriert (rechts), Quelle: \cite{lit_software_matlab}} \label{fig:imag10}
 \end{center}
 
+<<<<<<< HEAD
 
 In Abbildung \ref{fig:imag10} ist ein Detail-Ausschnitt der Ergebnisse der linken Leinwand-Hälfte zu erkennen. Es ist deutlich zu sehen, dass die Werte nach der Kalibrierung näher an der idealen Geraden liegen. Je näher sich die Blickposition dem linken Bildschirmrand nähert, umso geringer wird der absolute Fehler. Es ist festzustellen, dass in Richtung Bildschirmmitte weiterhin zu wenig korrigiert wird. Dort ist ein geringer Fehler zwischen gekrümmter und gerader Leinwand zu erwarten. Dennoch ist der dort fast so hoch wie in Randnähe. Würde der Parameter c erhöht werden, dann würde der Fehler reduziert werden. Gleichzeitig würde der nutzbare Erfassungsbereich des Eye Trackers reduziert werden. Es bestehen dieselben Probleme wie bei der e-Funktion, nur weniger stark ausgeprägt. 
 
@@ -434,6 +698,10 @@ Eine Funktion 4. Grades scheint auf den ersten Blick sinnvoll. Diese steigt zwar
 
 Nach den Experimenten im Fahrsimulator wurde aus den daraus gewonnenen Erfahrungen eine Funktion gesucht, welche in der Bildschirmmitte einen Korrekturwert von null ausgibt. Die Funktion sollte einen Korrekturfaktor ausgeben, welcher sich relativ zum Abstand zu der Bildschirmmitte erhöht. Dabei sollte dieser Anstieg bereits unmittelbar um die Bildschirmmitte hoch sein, damit der Fehler dort bereits ausreichend verringert wird. An den Rändern soll sie allerdings nicht zu sehr ansteigen, da sonst der nutzbare Sichtbereich reduziert werden würde. Dieser sollte im Idealfall größer sein, als bei der quadratischen Funktion. Als Kurvendiagramm sollte die Funktion wie ein V aussehen, dessen Tiefpunkt auf der x-Achse bei der Bildschirmmitte, also bei 2222 Pixeln liegt. Mithilfe von Geogebra wurde eine solche Funktion zusammengebaut \cite{lit_software_geogebra}.
 
+=======
+Nach den Experimenten im Fahrsimulator wurde aus den daraus gewonnen Erfahrungen eine Funktion gesucht, welche in der Bildschirmmitte einen Korrekturwert von null ausgibt. Die Funktion sollte einen Korrekturfaktor ausgeben, welcher sich relativ zum Abstand zu der Bildschirmmitte erhöht. Dabei sollte dieser Anstieg bereits unmittelbar um die Bildschirmmitte hoch sein, damit der Fehler dort bereits ausreichend verringert wird. An den Rändern soll sie allerdings nicht zu sehr ansteigen, da sonst der nutzbare Sichtbereich reduziert werden würde. Als Kurvendiagramm sollte die Funktion wie ein V aussehen, dessen Tiefpunkt auf der x-Achse bei der Bildschirmmitte, also bei 2222 Pixeln liegt. In Richtung der Ränder sollte die Steigung der Funktion kleiner werden, damit der nutzbare Sichtbereich des Eye Trackers nicht zu sehr eingeschränkt wird. Dieser sollte im Idealfall größer sein, als bei der quadratischen Funktion. Mithilfe von Geogebra wurde eine solche Funktion zusammengebaut \cite{lit_software_geogebra}.
+
+>>>>>>> fd0befd8e95e2bae230d21ece8a1862eada6b577
 Damit die Steigung stufenlos angepasst werden kann, wurde eine Variable p dafür verwendet. Damit keine negativen Werte herauskommen, muss mithilfe des Betrags sichergestellt werden, dass innerhalb der Basis keine negativen Werte vorkommen. Damit die \Gls{V-Funktion} ihren Tiefpunkt in der Bildschirmmitte hat, muss sie um die Bildschirmmitte nach rechts verschoben werden:
 
 \begin{equation} \label{eq:5}

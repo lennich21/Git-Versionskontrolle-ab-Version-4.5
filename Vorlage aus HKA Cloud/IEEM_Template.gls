@@ -20,7 +20,11 @@
 		\setentrycounter[]{page}\glsnumberformat{2}}}\glsgroupskip
 \glsgroupheading{L}\relax \glsresetentrylist %
 \glossentry{Lidar}{\glossaryentrynumbers{\relax 
+<<<<<<< HEAD
 		\setentrycounter[]{page}\glsnumberformat{16}}}\glsgroupskip
+=======
+		\setentrycounter[]{page}\glsnumberformat{14}}}\glsgroupskip
+>>>>>>> fd0befd8e95e2bae230d21ece8a1862eada6b577
 \glsgroupheading{O}\relax \glsresetentrylist %
 \glossentry{Open Source}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{4}}}\glsgroupskip
@@ -29,7 +33,11 @@
 		\setentrycounter[]{page}\glsnumberformat{24}}}\glsgroupskip
 \glsgroupheading{Q}\relax \glsresetentrylist %
 \glossentry{quadratische Funktion}{\glossaryentrynumbers{\relax 
+<<<<<<< HEAD
 		\setentrycounter[]{page}\glsnumberformat{28}}}\glsgroupskip
+=======
+		\setentrycounter[]{page}\glsnumberformat{27}}}\glsgroupskip
+>>>>>>> fd0befd8e95e2bae230d21ece8a1862eada6b577
 \glsgroupheading{R}\relax \glsresetentrylist %
 \glossentry{Raw-Output}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{27}}}\glsgroupskip
@@ -38,5 +46,9 @@
 		\setentrycounter[]{page}\glsnumberformat{1}}}\glsgroupskip
 \glsgroupheading{V}\relax \glsresetentrylist %
 \glossentry{V-Funktion}{\glossaryentrynumbers{\relax 
+<<<<<<< HEAD
 		\setentrycounter[]{page}\glsnumberformat{31}}}%
+=======
+		\setentrycounter[]{page}\glsnumberformat{30}}}%
+>>>>>>> fd0befd8e95e2bae230d21ece8a1862eada6b577
 \end{theglossary}\glossarypostamble

@@ -1,5 +1,9 @@
 % makeindex style file created by the glossaries package
+<<<<<<< HEAD
 % for document 'IEEM_Template' on 2025-6-9
+=======
+% for document 'IEEM_Template' on 2025-6-6
+>>>>>>> fd0befd8e95e2bae230d21ece8a1862eada6b577
 actual '?'
 encap '|'
 level '!'

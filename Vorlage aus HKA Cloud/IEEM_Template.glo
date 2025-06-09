@@ -5,9 +5,18 @@
 \glossaryentry{Bildwiederholrate?\glossentry{Bildwiederholrate}|setentrycounter[]{page}"\glsnumberformat}{4}
 \glossaryentry{Open Source?\glossentry{Open Source}|setentrycounter[]{page}"\glsnumberformat}{4}
 \glossaryentry{Actor?\glossentry{Actor}|setentrycounter[]{page}"\glsnumberformat}{13}
+<<<<<<< HEAD
 \glossaryentry{Lidar?\glossentry{Lidar}|setentrycounter[]{page}"\glsnumberformat}{16}
 \glossaryentry{Pixel?\glossentry{Pixel}|setentrycounter[]{page}"\glsnumberformat}{24}
 \glossaryentry{e-Funktion?\glossentry{e-Funktion}|setentrycounter[]{page}"\glsnumberformat}{25}
 \glossaryentry{Raw-Output?\glossentry{Raw-Output}|setentrycounter[]{page}"\glsnumberformat}{27}
 \glossaryentry{Quadratische Funktion?\glossentry{quadratische Funktion}|setentrycounter[]{page}"\glsnumberformat}{28}
 \glossaryentry{V-Funktion?\glossentry{V-Funktion}|setentrycounter[]{page}"\glsnumberformat}{31}
+=======
+\glossaryentry{Lidar?\glossentry{Lidar}|setentrycounter[]{page}"\glsnumberformat}{14}
+\glossaryentry{Pixel?\glossentry{Pixel}|setentrycounter[]{page}"\glsnumberformat}{24}
+\glossaryentry{e-Funktion?\glossentry{e-Funktion}|setentrycounter[]{page}"\glsnumberformat}{25}
+\glossaryentry{Raw-Output?\glossentry{Raw-Output}|setentrycounter[]{page}"\glsnumberformat}{27}
+\glossaryentry{Quadratische Funktion?\glossentry{quadratische Funktion}|setentrycounter[]{page}"\glsnumberformat}{27}
+\glossaryentry{V-Funktion?\glossentry{V-Funktion}|setentrycounter[]{page}"\glsnumberformat}{30}
+>>>>>>> fd0befd8e95e2bae230d21ece8a1862eada6b577
